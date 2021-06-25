@@ -1,27 +1,42 @@
 package cn.tedu.knows.portal.model;
 
-import lombok.*;
-import lombok.extern.slf4j.Slf4j;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
+/**
+ * <p>
+ * 
+ * </p>
+ *
+ * @author tedu.cn
+ * @since 2021-06-25
+ */
 @Data
-@Setter
-@Getter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
-@Slf4j
-public class Tag {
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)//链式函数的支持
+@TableName("tag")
+public class Tag implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
+
+    @TableField("name")
     private String name;
+
+    @TableField("createby")
     private String createby;
-    private String createtime;
 
-    public void record(){
+    @TableField("createtime")
+    private LocalDateTime createtime;
 
-        log.debug("这是Lombok@Slf4j注解的log对象输出的日志信息");
-
-    }
 
 }

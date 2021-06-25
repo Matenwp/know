@@ -20,6 +20,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>knows-portal</module>
+        <module>knows-generator</module>
     </modules>
     <dependencyManagement>
         <dependencies>

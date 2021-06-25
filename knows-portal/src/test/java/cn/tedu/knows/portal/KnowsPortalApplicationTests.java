@@ -53,7 +53,7 @@ class KnowsPortalApplicationTests {
         System.out.println("id:"+tag.getId());
         System.out.println("name:"+tag.getName());
         System.out.println(tag);
-        tag.record();
+        //tag.record();
     }
 
 }

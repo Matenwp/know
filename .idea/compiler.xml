@@ -7,17 +7,20 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="knows-generator" />
         <module name="knows-portal" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="knows" target="1.8" />
+      <module name="knows-generator" target="1.8" />
       <module name="knows-portal" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="knows" options="-parameters" />
+      <module name="knows-generator" options="-parameters" />
       <module name="knows-portal" options="-parameters" />
     </option>
   </component>
