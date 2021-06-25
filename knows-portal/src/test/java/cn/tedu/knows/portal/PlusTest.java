@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @SpringBootTest
@@ -18,6 +19,18 @@ public class PlusTest {
         for(Tag t:tags){
             System.out.println(t);
         }
+    }
+    @Test
+    void add(){
+        /*Tag tag=new Tag()
+                .setName("杂项")
+                .setCreateby("admin")
+                .setCreatetime(LocalDateTime.now());
+        int num=tagMapper.insert(tag);
+        //num表示本次数据库操作影响数据库的行数
+        System.out.println(num);*/
+
+        tagMapper.deleteById(22);
 
     }
 

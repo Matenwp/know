@@ -3,6 +3,8 @@ package cn.tedu.knows.portal;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 //@MapperScan是MyBatis的注解
@@ -14,5 +16,6 @@ public class KnowsPortalApplication {
     public static void main(String[] args) {
         SpringApplication.run(KnowsPortalApplication.class, args);
     }
+
 
 }

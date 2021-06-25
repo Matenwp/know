@@ -38,5 +38,4 @@ public class Tag implements Serializable {
     @TableField("createtime")
     private LocalDateTime createtime;
 
-
 }
