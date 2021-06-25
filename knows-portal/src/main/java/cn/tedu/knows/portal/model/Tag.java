@@ -20,7 +20,7 @@ public class Tag {
 
     public void record(){
 
-        log.info("这是Lombok@Slf4j注解的log对象输出的日志信息");
+        log.debug("这是Lombok@Slf4j注解的log对象输出的日志信息");
 
     }
 
