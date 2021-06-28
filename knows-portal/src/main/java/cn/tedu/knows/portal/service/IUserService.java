@@ -1,6 +1,7 @@
 package cn.tedu.knows.portal.service;
 
 import cn.tedu.knows.portal.model.User;
+import cn.tedu.knows.portal.vo.RegisterVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IUserService extends IService<User> {
 
+    //注册一个学生的方法
+    void registerStudent(RegisterVo registerVo);
 }
