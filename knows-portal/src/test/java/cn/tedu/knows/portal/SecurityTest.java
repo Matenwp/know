@@ -1,9 +1,15 @@
 package cn.tedu.knows.portal;
 
+import cn.tedu.knows.portal.mapper.UserMapper;
+import cn.tedu.knows.portal.model.Permission;
+import cn.tedu.knows.portal.model.User;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.List;
 
 @SpringBootTest
 public class SecurityTest {
@@ -34,6 +40,18 @@ public class SecurityTest {
         System.out.println("验证结果:"+b);
     }
 
+    @Autowired
+    UserMapper userMapper;
+    @Test
+    void testUser(){
+        User user=userMapper.findUserByUsername("st2");
+        System.out.println(user);
+        List<Permission> ps=
+                userMapper.findUserPermissionsById(user.getId());
+        for(Permission p: ps){
+            System.out.println(p);
+        }
+    }
 
 
 
