@@ -1,5 +1,7 @@
 package cn.tedu.knows.portal.security;
 
+import cn.tedu.knows.portal.service.impl.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -11,15 +13,17 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    //从Spring容器中注入实现了Spring-Security登录要求的对象
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //参数auth就是管理Spring-Security进行登录和权限管理的核心对象
-        //通过代码设置一个可以登录到Spring-Security的用户
-        //注意一旦设置了代码,配置文件中的用户就失效了
-        auth.inMemoryAuthentication()
-                .withUser("jerry")
-                .password("{bcrypt}$2a$10$f7b5X9txC178W6fDF7rPOeUWHGdwI9uqmmL9/3DD7xt4GJnT0bQxS")
-                .authorities("add","delete");
+        //这里的配置就是设置登录页面点击登录时
+        //Spring-Security会自动调用这个方法
+        //会获得这个类中loadUserByUsername方法的返回值
+        //自动判断登录结果,并在登录页面上反馈
+        auth.userDetailsService(userDetailsService);
 
     }
 }

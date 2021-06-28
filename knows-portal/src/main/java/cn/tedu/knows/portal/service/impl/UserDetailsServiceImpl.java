@@ -1,12 +1,15 @@
 package cn.tedu.knows.portal.service.impl;
 
 import cn.tedu.knows.portal.mapper.UserMapper;
+import cn.tedu.knows.portal.model.Permission;
 import cn.tedu.knows.portal.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -27,9 +30,24 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return null;
         }
         //3.根据用户id查询用户权限
+        List<Permission> permissions=
+                userMapper.findUserPermissionsById(user.getId());
         //4.将权限整理成String数组
+        String[] auth=new String[permissions.size()];
+        int i=0;
+        for(Permission p:permissions){
+            auth[i++]=p.getName();//{"/index.html","/question/create"...}
+        }
         //5.构建UserDetails类型对象
+        UserDetails u= org.springframework.security.core.userdetails
+                .User.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .authorities(auth)
+                .accountLocked(user.getLocked()==1) //getLocked值为0,==1 结果为false
+                .disabled(user.getEnabled()==0)//getEnabled值为1 ==0 结果为false
+                .build();
         //6.返回UserDetails对象
-        return null;
+        return u;
     }
 }
