@@ -38,7 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/css/*",
                     "/img/**",
                     "/bower_components/**",
-                    "/login.html")
+                    "/login.html",
+                    "/register.html",
+                    "/register")
                 .permitAll()//上面设置的路径全部允许直接访问
             .anyRequest()//其它的路径
             .authenticated()//需要进行登录
