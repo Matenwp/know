@@ -21,6 +21,7 @@ public class SystemController {
 
     @PostMapping("/register")
     public String registerStudent(RegisterVo registerVo){
+
         log.debug("收到学生注册信息:{}",registerVo);
         try {
             userService.registerStudent(registerVo);
