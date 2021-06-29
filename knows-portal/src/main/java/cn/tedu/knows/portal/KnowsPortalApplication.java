@@ -12,7 +12,6 @@ import org.springframework.context.annotation.ComponentScan;
 // 这样这个包中所有接口就不需要每个都使用@Mapper标记了
 @MapperScan("cn.tedu.knows.portal.mapper")
 public class KnowsPortalApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(KnowsPortalApplication.class, args);
     }
