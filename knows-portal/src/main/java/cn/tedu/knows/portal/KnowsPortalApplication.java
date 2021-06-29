@@ -17,5 +17,4 @@ public class KnowsPortalApplication {
         SpringApplication.run(KnowsPortalApplication.class, args);
     }
 
-
 }
