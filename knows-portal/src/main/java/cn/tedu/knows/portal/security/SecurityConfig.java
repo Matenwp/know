@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()//禁用防跨域攻击功能
             .authorizeRequests()//开始进行授权范围管理
             .antMatchers(//设置如下url
-                    "/index_student.html",
+                    //"/index_student.html",
                     "/js/*",
                     "/css/*",
                     "/img/**",
