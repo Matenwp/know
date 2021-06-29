@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author tedu.cn
  * @since 2021-06-25
  */
+//Ctrl+Alt+B 从接口自动跳转掉实现类
 public interface IUserService extends IService<User> {
 
     //注册一个学生的方法
