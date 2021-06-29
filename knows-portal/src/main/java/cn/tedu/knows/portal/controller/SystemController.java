@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 @RestController
 @Slf4j
 public class SystemController {
 
-    @Autowired
+    @Resource
     private IUserService userService;
 
     @PostMapping("/register")
