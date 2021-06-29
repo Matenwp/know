@@ -14,6 +14,7 @@
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="bower_components/polyfill/dist/polyfill.min.js"></script>
   <script src="bower_components/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <header class="container-fluid mb-3 bg-light">
@@ -163,7 +164,10 @@
 <div class="container-fluid"  th:fragment="tags_nav" >
   <div class="nav font-weight-light" id="tagsApp">
     <a href="tag/tag_question.html" class="nav-item nav-link text-info"><small>全部</small></a>
-    <a href="tag/tag_question.html" class="nav-item nav-link text-info"><small>Java基础</small></a>
+    <a href="tag/tag_question.html"
+       class="nav-item nav-link text-info"
+      v-for="tag in tags">
+      <small v-text="tag.name">Java基础</small></a>
   </div>
 </div>
 
@@ -460,4 +464,6 @@
   </p>
 </footer>
 </body>
+<script src="js/utils.js"></script>
+<script src="js/tags_nav.js"></script>
 </html>

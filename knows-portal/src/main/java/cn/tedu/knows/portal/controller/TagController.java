@@ -2,11 +2,15 @@ package cn.tedu.knows.portal.controller;
 
 
 import cn.tedu.knows.portal.model.Tag;
+import cn.tedu.knows.portal.service.ITagService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -22,28 +26,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1/tags")
 public class TagController {
 
-    //下面的hello方法要想访问它的路径就是
-    //localhost:8080/v1/tags/hello
-    @GetMapping("/hello")
-    public String welcome(){
-        return "hello welcome!!!";
-    }
+    @Autowired
+    private ITagService tagService;
 
-    @GetMapping("/get")
-    //下面的注解表示当前方法需要用户拥有特殊权限才能访问
-    @PreAuthorize("hasAuthority('add')")
-    public Tag getTag(){
-        Tag t=new Tag();
-        t.setName("乾坤大挪移");
-        return t;
+    //下面的控制方法使用/v1/tags就可以访问
+    @GetMapping("")
+    public List<Tag> tags(){
+        List<Tag> tags=tagService.getTags();
+        return tags;
     }
-    @GetMapping("/list")
-    @PreAuthorize("hasAuthority('delete')")
-    public Tag getList(){
-        Tag t=new Tag();
-        t.setName("九阴白骨爪");
-        return t;
-    }
-
-
 }

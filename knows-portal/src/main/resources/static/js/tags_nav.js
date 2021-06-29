@@ -16,6 +16,7 @@ let tagsApp = new Vue({
             })
         }
     },
+    //created指定的方法会在当前页面所有内容加载完毕之后自动运行
     created:function () {
         this.loadTags();
     }
