@@ -232,7 +232,10 @@
               </div>
             </div>
             <!-- / class="media-body"-->
-            <img src="img/tags/example0.jpg"  class="ml-3 border img-fluid rounded" alt="" width="208" height="116">
+            <img src="img/tags/example0.jpg"
+                 class="ml-3 border img-fluid rounded"
+                 alt="" width="208" height="116"
+                v-bind:src="question.tagImage">
           </div>
           <div class="row mt-2">
             <div class="col-6 offset-3">
