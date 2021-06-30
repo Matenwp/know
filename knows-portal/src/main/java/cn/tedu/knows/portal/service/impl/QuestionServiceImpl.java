@@ -45,7 +45,12 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         query.eq("delete_status",0);
         query.orderByDesc("createtime");
         List<Question> list=questionMapper.selectList(query);
-        //3.返回查询到的问题
+        //3.将查询到的当前问题的所有标签获得
+        for(Question question : list){
+            List<Tag> tags=tagName2Tags(question.getTagNames());
+            question.setTags(tags);
+        }
+        //4.返回查询到的问题
         log.debug("当前用户问题数量:{}", list.size());
         //千万别忘了返回!!!
         return list;
