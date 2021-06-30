@@ -3,8 +3,10 @@ package cn.tedu.knows.portal.service.impl;
 import cn.tedu.knows.portal.mapper.UserMapper;
 import cn.tedu.knows.portal.model.Question;
 import cn.tedu.knows.portal.mapper.QuestionMapper;
+import cn.tedu.knows.portal.model.Tag;
 import cn.tedu.knows.portal.model.User;
 import cn.tedu.knows.portal.service.IQuestionService;
+import cn.tedu.knows.portal.service.ITagService;
 import cn.tedu.knows.portal.service.IUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -12,7 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -46,4 +50,30 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         //千万别忘了返回!!!
         return list;
     }
+
+    @Autowired
+    private ITagService tagService;
+    //编写一个方法,根据tag_names的值获得一个对应的List<Tag>集合
+    private List<Tag> tagName2Tags(String tagNames){
+        //tagNames :  "Java基础,Java SE,面试题"
+        String[] names=tagNames.split(",");
+        // names:   {"Java基础","Java SE","面试题"}
+        //准备包含所有标签的Map
+        Map<String,Tag> tagMap=tagService.getTagMap();
+        //声明List<Tag> 用于接收标签名称对应的标签对象
+        List<Tag> tags=new ArrayList<>();
+        //遍历数组,将数组元素对应的标签对象添加到tags中
+        for(String name:names){
+            tags.add(tagMap.get(name));
+        }
+        //别忘了返回
+        return tags;
+
+    }
+
+
+
+
+
+
 }

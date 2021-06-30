@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -25,6 +27,8 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
     //CopyOnWriteArrayList是一个线程安全的List集合
     private List<Tag> tags=new CopyOnWriteArrayList<>();
 
+    private Map<String,Tag> tagMap=new ConcurrentHashMap<>();
+
     @Override
     public List<Tag> getTags() {
         //  1     2     3
@@ -32,10 +36,24 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
             synchronized (tags) {
                 if(tags.isEmpty()) {
                     tags.addAll(list());
+                    //循环遍历所有标签
+                    for(Tag t: tags){
+                        //以标签名称为key,标签对象为value保存在tagMap中
+                        tagMap.put(t.getName(),t);
+                    }
                 }
             }
         }
         return tags;
+    }
+
+    @Override
+    public Map<String, Tag> getTagMap() {
+        if(tagMap.isEmpty()){
+            getTags();
+        }
+        //别忘了返回tagMap
+        return tagMap;
     }
 
 

@@ -5,6 +5,7 @@ import cn.tedu.knows.portal.model.Tag;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -16,6 +17,9 @@ import java.util.List;
  */
 public interface ITagService extends IService<Tag> {
 
+    //获得所有标签的List
     List<Tag> getTags();
 
+    //获得所有标签的Map,key是标签名称,value是标签对象
+    Map<String,Tag> getTagMap();
 }
