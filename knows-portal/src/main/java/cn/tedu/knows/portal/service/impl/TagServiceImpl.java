@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * <p>
@@ -20,12 +21,21 @@ import java.util.List;
 @Service
 public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagService {
 
+    //声明一个成员变量充当缓存
+    //CopyOnWriteArrayList是一个线程安全的List集合
+    private List<Tag> tags=new CopyOnWriteArrayList<>();
+
     @Override
     public List<Tag> getTags() {
-        //this.list()就是在调用父类中已经提供的全查所有当前Tag对象的方法
-        //List<Tag> tags=this.list();
-        //list()方法是当前类父类ServiceImpl中提供的全查方法!!!
-        return list();
+        //  1     2     3
+        if(tags.isEmpty()){
+            synchronized (tags) {
+                if(tags.isEmpty()) {
+                    tags.addAll(list());
+                }
+            }
+        }
+        return tags;
     }
 
 
