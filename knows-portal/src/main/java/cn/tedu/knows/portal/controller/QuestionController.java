@@ -1,9 +1,17 @@
 package cn.tedu.knows.portal.controller;
 
 
+import cn.tedu.knows.portal.model.Question;
+import cn.tedu.knows.portal.service.IQuestionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,7 +22,21 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-06-25
  */
 @RestController
-@RequestMapping("/portal/question")
+@RequestMapping("/v1/questions")
 public class QuestionController {
+    @Autowired
+    private IQuestionService questionService;
+
+    //根据当前登录学生,查询学生所有问题的控制器方法
+    @GetMapping("/my")
+    public List<Question> myQuestion(
+            //@AuthenticationPrincipal是Spring-Security提供的注解
+            //它能够将当前登录用户的详细信息赋值给紧随的参数
+            @AuthenticationPrincipal UserDetails user){
+        List<Question> questions=
+                questionService.getMyQuestions(user.getUsername());
+        return questions;
+    }
+
 
 }
