@@ -10,6 +10,7 @@ import cn.tedu.knows.portal.service.ITagService;
 import cn.tedu.knows.portal.service.IUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,9 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         query.eq("user_id",user.getId());
         query.eq("delete_status",0);
         query.orderByDesc("createtime");
+        //查询执行之前使用PageHelper对象进行分页设置
+        //第一个参数是页码,第二个参数是每页最大条数
+        PageHelper.startPage(2,8);
         List<Question> list=questionMapper.selectList(query);
         //3.将查询到的当前问题的所有标签获得
         for(Question question : list){
