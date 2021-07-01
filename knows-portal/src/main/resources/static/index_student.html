@@ -241,9 +241,17 @@
             <div class="col-6 offset-3">
               <nav aria-label="Page navigation example">
                 <div class="pagination">
-                  <a class="page-item page-link" href="#" >上一页</a>
-                  <a class="page-item page-link " href="#" >1</a>
-                  <a class="page-item page-link" href="#" >下一页</a>
+                  <a class="page-item page-link" href="#"
+                    v-on:click.prevent="loadQuestions(pageinfo.prePage)">上一页</a>
+                  <a class="page-item page-link " href="#"
+                    v-for="n in pageinfo.navigatepageNums"
+                    v-on:click.prevent="loadQuestions(n)"
+                    v-bind:class="{'bg-secondary text-light':n==pageinfo.pageNum}"
+                    >
+                    <span v-text="n">1</span>
+                  </a>
+                  <a class="page-item page-link" href="#"
+                    v-on:click.prevent="loadQuestions(pageinfo.nextPage)">下一页</a>
                 </div>
               </nav>
             </div>
