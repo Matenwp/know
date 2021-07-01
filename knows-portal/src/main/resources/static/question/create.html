@@ -24,7 +24,7 @@
   <script src="../bower_components/select2/dist/js/select2.min.js"></script>
   <script src="../bower_components/select2/dist/js/i18n/zh-CN.js"></script>
   <script src="../bower_components/vue-select/dist/vue-select.js"></script>
-
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <header class="container-fluid mb-3 bg-light">
@@ -181,19 +181,8 @@
   </div><!-- 查看邀请码modal-->
 </header>
 <!--引入标签的导航栏-->
-<div class="container-fluid" >
-  <div class="nav font-weight-light">
-    <a href="../tag/tag_question.html" class="nav-item nav-link text-info"><small>全部</small></a>
-    <a href="../tag/tag_question.html" class="nav-item nav-link text-info"><small>Java基础</small></a>
-    <a href="../tag/tag_question.html" class="nav-item nav-link text-info"><small>Java OOP</small></a>
-    <a href="../tag/tag_question.html" class="nav-item nav-link text-info"><small>Java SE</small></a>
-    <a href="../tag/tag_question.html" class="nav-item nav-link text-info"><small>WebServer</small></a>
-    <a href="../tag/tag_question.html" class="nav-item nav-link text-info"><small>二进制</small></a>
-    <a href="../tag/tag_question.html" class="nav-item nav-link text-info"><small>Web</small></a>
-    <a href="../tag/tag_question.html" class="nav-item nav-link text-info"><small>MySQL</small></a>
-    <a href="../tag/tag_question.html" class="nav-item nav-link text-info"><small>Servlet</small></a>
-  </div>
-</div>
+<!-- 使用自定义模板 -->
+<tagsapp id="tagsApp" :tags="tags"></tagsapp>
 <div class="container-fluid mt-2 mb-1 bg-light" id="app" v-cloak>
   <div class="row">
     <div class="alsrtInfo" style="display: none" :style="{display: displayStsates}" ref="alertMsg">
@@ -512,4 +501,12 @@
   });
 </script>
 </body>
+<!--
+当前页面是question文件夹下的页面,要想连接js文件夹需要向上一级
+../开头
+-->
+<script src="../js/utils.js"></script>
+<script src="../js/tags_nav_temp.js"></script>
+<script src="../js/tags_nav.js"></script>
+</head>
 </html>
