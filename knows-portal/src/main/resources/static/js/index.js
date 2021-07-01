@@ -9,14 +9,9 @@ let questionsApp = new Vue({
         pageinfo:{},
     },
     methods: {
-        loadQuestions:function () {
-            let index=location.href.lastIndexOf("#");
-            let pageNum=1;
-            if(index!=-1){
-                pageNum=location.href.substring(index+1);
-            }
+        loadQuestions:function (pageNum) {
             console.log(pageNum)
-            if(! pageNum){
+            if(!pageNum){
                 pageNum = 1;
             }
             axios({
@@ -29,12 +24,11 @@ let questionsApp = new Vue({
                 console.log("成功加载数据");
                 console.log(r);
                 if(r.status == OK){
-                    questionsApp.questions = r.data;
-                    //questionsApp.pageinfo = r.data;
+                    questionsApp.questions = r.data.list;
+                    questionsApp.pageinfo = r.data;
                     //为question对象添加持续时间属性
                     questionsApp.updateDuration();
                     questionsApp.updateTagImage();
-                    window.onhashchange=questionsApp.loadQuestions;
                 }
             })
         },

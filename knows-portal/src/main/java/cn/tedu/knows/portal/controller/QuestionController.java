@@ -3,6 +3,7 @@ package cn.tedu.knows.portal.controller;
 
 import cn.tedu.knows.portal.model.Question;
 import cn.tedu.knows.portal.service.IQuestionService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,13 +30,18 @@ public class QuestionController {
 
     //根据当前登录学生,查询学生所有问题的控制器方法
     @GetMapping("/my")
-    public List<Question> myQuestion(
+    public PageInfo<Question> myQuestion(
             //@AuthenticationPrincipal是Spring-Security提供的注解
             //它能够将当前登录用户的详细信息赋值给紧随的参数
-            @AuthenticationPrincipal UserDetails user){
-        List<Question> questions=
-                questionService.getMyQuestions(user.getUsername());
-        return questions;
+            @AuthenticationPrincipal UserDetails user,
+            Integer pageNum){
+        if(pageNum==null)
+            pageNum=1;
+        Integer pageSize=8;
+        PageInfo<Question> pageInfo=
+                questionService.getMyQuestions(
+                        user.getUsername(),pageNum,pageSize);
+        return pageInfo;
     }
 
 

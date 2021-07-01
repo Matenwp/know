@@ -2,6 +2,7 @@ package cn.tedu.knows.portal.service;
 
 import cn.tedu.knows.portal.model.Question;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -16,5 +17,6 @@ import java.util.List;
 public interface IQuestionService extends IService<Question> {
 
     // 查询当前登录学生的问题
-    List<Question> getMyQuestions(String username);
+    PageInfo<Question> getMyQuestions(
+            String username,Integer pageNum,Integer pageSize);
 }

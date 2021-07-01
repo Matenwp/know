@@ -11,6 +11,7 @@ import cn.tedu.knows.portal.service.IUserService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,8 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     private QuestionMapper questionMapper;
 
     @Override
-    public List<Question> getMyQuestions(String username) {
+    public PageInfo<Question> getMyQuestions(
+            String username,Integer pageNum,Integer pageSize) {
         //1.通过用户名查询用户信息
         User user=userMapper.findUserByUsername(username);
         //2.根据当前登录用户的id查询问题
@@ -47,7 +49,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         query.orderByDesc("createtime");
         //查询执行之前使用PageHelper对象进行分页设置
         //第一个参数是页码,第二个参数是每页最大条数
-        PageHelper.startPage(2,8);
+        PageHelper.startPage(pageNum,pageSize);
         List<Question> list=questionMapper.selectList(query);
         //3.将查询到的当前问题的所有标签获得
         for(Question question : list){
@@ -57,7 +59,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         //4.返回查询到的问题
         log.debug("当前用户问题数量:{}", list.size());
         //千万别忘了返回!!!
-        return list;
+        return new PageInfo<>(list);
     }
 
     @Autowired
