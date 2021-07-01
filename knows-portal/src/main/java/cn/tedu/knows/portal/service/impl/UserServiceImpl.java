@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -88,6 +90,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             throw new ServiceException("服务器忙,请稍后再试");
         }
     }
+
+    //声明计时器
+    private Timer timer=new Timer();
+
+    {
+        //这个区域叫初始化代码块,每次实例化当前类型对象时
+        //会在构造方法运行之前运行其中的代码
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                synchronized (teachers){
+                    synchronized (teacherMap){
+                        teachers.clear();
+                        teacherMap.clear();
+                    }
+                }
+                System.out.println("缓存已清空");
+            }
+        },30*60*1000,30*60*1000);
+    }
+
+
 
     private List<User> teachers=new CopyOnWriteArrayList<>();
     private Map<String,User> teacherMap=new ConcurrentHashMap<>();

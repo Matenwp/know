@@ -26,7 +26,7 @@ let createQuestionApp = new Vue({
             }).then(function(r){
                 console.log(r.data);
                 if(r.status==OK){
-                    location.href="/index.html";
+                    //location.href="/index.html";
                 }
             })
         },

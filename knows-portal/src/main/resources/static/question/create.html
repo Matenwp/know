@@ -194,7 +194,8 @@
     <div class="col-8" id="createQuestionApp">
       <h4 class="border-bottom m-2 p-2 font-weight-light"><i class="fa fa-question-circle-o" aria-hidden="true"></i>
         填写问题</h4>
-      <form >
+      <form
+        @submit.prevent="createQuestion">
         <div class="form-group">
           <label for="title">标题:</label>
           <input type="text" class="form-control" id="title" name="title" placeholder="请填写标题3~50字符"

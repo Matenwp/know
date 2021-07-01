@@ -3,11 +3,16 @@ package cn.tedu.knows.portal.controller;
 
 import cn.tedu.knows.portal.model.Question;
 import cn.tedu.knows.portal.service.IQuestionService;
+import cn.tedu.knows.portal.vo.QuestionVo;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +29,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/v1/questions")
+@Slf4j
 public class QuestionController {
     @Autowired
     private IQuestionService questionService;
@@ -43,6 +49,25 @@ public class QuestionController {
                         user.getUsername(),pageNum,pageSize);
         return pageInfo;
     }
+
+    //编写新增问题的控制层方法
+    //PostMapping("")表示/v1/questions就是新增问题的url
+    @PostMapping("")
+    public String createQuestion(
+            @Validated QuestionVo questionVo,
+            BindingResult result,
+            @AuthenticationPrincipal UserDetails user){
+        log.debug("接收到问题内容:{}",questionVo);
+        if(result.hasErrors()){
+            //如果验证出现问题,返回验证错误信息
+            String msg=result.getFieldError().getDefaultMessage();
+            return msg;
+        }
+        return "问题已发布";
+
+    }
+
+
 
 
 }
