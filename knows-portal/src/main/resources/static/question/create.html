@@ -191,7 +191,7 @@
   </div>
   <div class="row">
 
-    <div class="col-8">
+    <div class="col-8" id="createQuestionApp">
       <h4 class="border-bottom m-2 p-2 font-weight-light"><i class="fa fa-question-circle-o" aria-hidden="true"></i>
         填写问题</h4>
       <form >
@@ -202,23 +202,16 @@
         </div>
         <div class="form-group">
           <label >请至少选择一个标签：</label>
-          <select multiple class="form-control" name="tags" >
-            <option>Java基础</option>
-            <option>Java OOP</option>
-            <option>Java SE</option>
-            <option>Spring</option>
-            <option>Spring MVC</option>
-          </select>
+          <v-select multiple required v-bind:options="tags"
+            v-model="selectedTags" placeholder="请选择问题相关的标签">
+          </v-select>
         </div>
         <div class="form-group">
           <label >请选择老师：</label>
-          <select multiple class="form-control" name="teachers" >
-            <option>王克晶</option>
-            <option>范传奇</option>
-            <option>刘国斌</option>
-            <option>张皓岚</option>
-            <option>刘苍松</option>
-          </select>
+          <v-select multiple required v-bind:options="teachers"
+                    v-model="selectedTeachers"
+                    placeholder="请选择提问的讲师">
+          </v-select>
         </div>
         <div class="form-group">
           <!--富文本编辑器 start-->
@@ -508,5 +501,5 @@
 <script src="../js/utils.js"></script>
 <script src="../js/tags_nav_temp.js"></script>
 <script src="../js/tags_nav.js"></script>
-</head>
+<script src="../js/createQuestion.js"></script>
 </html>

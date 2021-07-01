@@ -4,6 +4,9 @@ import cn.tedu.knows.portal.model.User;
 import cn.tedu.knows.portal.vo.RegisterVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  *  服务类
@@ -17,4 +20,13 @@ public interface IUserService extends IService<User> {
 
     //注册一个学生的方法
     void registerStudent(RegisterVo registerVo);
+
+    //查询所有讲师List集合的方法
+    List<User> getTeachers();
+
+    //查询所有讲师Map集合的方法
+    Map<String,User> getTeacherMap();
+
+
+
 }
