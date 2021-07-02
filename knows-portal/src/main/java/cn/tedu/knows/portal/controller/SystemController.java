@@ -11,8 +11,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @RestController
 @Slf4j
@@ -42,6 +47,21 @@ public class SystemController {
 
 
     }
+    private File resourcePath=new File("G:/upload");
+
+    //文件上传的方法
+    @PostMapping("/upload/file")
+    public String uploadFile(MultipartFile imageFile){
+        // 根据日期获得一个日期路径
+        //  2021/07/02
+        String path= DateTimeFormatter.ofPattern("yyyy/MM/dd")
+                    .format(LocalDate.now());
+        return null;
+    }
+
+
+
+
 
 
 }
