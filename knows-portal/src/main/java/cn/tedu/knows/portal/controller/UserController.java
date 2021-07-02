@@ -23,10 +23,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/users")
 public class UserController {
-
     @Autowired
     private IUserService userService;
-
     @GetMapping("/master")
     public List<User> master(){
         List<User> users=userService.getTeachers();

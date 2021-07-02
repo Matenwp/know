@@ -1,21 +1,28 @@
 package cn.tedu.knows.portal.service.impl;
 
+import cn.tedu.knows.portal.exception.ServiceException;
+import cn.tedu.knows.portal.mapper.QuestionTagMapper;
 import cn.tedu.knows.portal.mapper.UserMapper;
+import cn.tedu.knows.portal.mapper.UserQuestionMapper;
 import cn.tedu.knows.portal.model.Question;
 import cn.tedu.knows.portal.mapper.QuestionMapper;
+import cn.tedu.knows.portal.model.QuestionTag;
 import cn.tedu.knows.portal.model.Tag;
 import cn.tedu.knows.portal.model.User;
 import cn.tedu.knows.portal.service.IQuestionService;
 import cn.tedu.knows.portal.service.ITagService;
 import cn.tedu.knows.portal.service.IUserService;
+import cn.tedu.knows.portal.vo.QuestionVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -82,7 +89,68 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
 
     }
 
+    @Autowired
+    private QuestionTagMapper questionTagMapper;
+    @Autowired
+    private UserQuestionMapper userQuestionMapper;
 
+    @Autowired
+    private IUserService userService;
+
+
+    @Override
+    public void saveQuestion(QuestionVo questionVo, String username) {
+        //1.根据用户名查询用户信息
+        User user=userMapper.findUserByUsername(username);
+        //2.根据学生选中的标签构建tag_names列的值
+        StringBuilder builder=new StringBuilder();
+        //{"java基础","javaSE","面试题"}
+        for(String tagName : questionVo.getTagNames()){
+            builder.append(tagName).append(",");
+        }
+        String tagNames=builder
+                .deleteCharAt(builder.length()-1).toString();
+        //"java基础,javaSE,面试题,"
+        //3.实例化Question对象并赋值
+        Question question=new Question()
+                .setTitle(questionVo.getTitle())
+                .setContent(questionVo.getContent())
+                .setUserNickName(user.getNickname())
+                .setUserId(user.getId())
+                .setCreatetime(LocalDateTime.now())
+                .setStatus(0)
+                .setPageViews(0)
+                .setPublicStatus(0)
+                .setDeleteStatus(0)
+                .setTagNames(tagNames);
+        //4.执行新增Question
+        int num=questionMapper.insert(question);
+        if(num!=1){
+            throw new ServiceException("服务器忙!");
+        }
+        //5.新增Question和tag的关系
+        //获得包含所有标签的Map
+        Map<String,Tag> tagMap=tagService.getTagMap();
+        for(String tagName : questionVo.getTagNames()){
+            Tag t=tagMap.get(tagName);
+            QuestionTag questionTag=new QuestionTag()
+                    .setQuestionId(question.getId())
+                    .setTagId(t.getId());
+            num=questionTagMapper.insert(questionTag);
+            if(num!=1){
+                throw new ServiceException("服务器忙");
+            }
+            log.debug("新增了问题和标签的关系:{}",questionTag);
+        }
+
+        //6.新增User(讲师)和Question的关系
+        //
+
+
+
+
+
+    }
 
 
 
