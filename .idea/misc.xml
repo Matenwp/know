@@ -6,6 +6,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/knows-portal/pom.xml" />
         <option value="$PROJECT_DIR$/knows-generator/pom.xml" />
+        <option value="$PROJECT_DIR$/knows-resource/pom.xml" />
       </list>
     </option>
   </component>
