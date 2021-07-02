@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>文件上载演示</title>
+    <script src="bower_components/jquery/dist/jquery.min.js" ></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <form id="demoForm" method="post"
@@ -17,4 +19,40 @@
 </form>
 <img id="image" src=""  alt="">
 </body>
+<script>
+//定义文件上传的方法,表单提交时运行的方法
+$("#demoForm").submit(function(){
+    //获得用户选中的文件,这是个js代码,获得的返回值是一个数组
+    let files=document.getElementById("imageFile").files;
+    //判断这个数组的长度是不是>0
+    if(files.length>0){
+        //从数据中获得文件
+        let file=files[0];
+        //调用上传文件的方法
+        uploadImage(file);
+    }else{
+        alert("请选择文件后再提交!");
+    }
+    //阻止表单提交,页面不跳转
+    return false;
+})
+//执行文件上传实际操作的方法
+function uploadImage(file){
+    let form=new FormData();
+    //imageFile和控制器方法uploadFile的参数名称对应,必须一致
+    form.append("imageFile",file);
+    //执行上传请求
+    axios({
+        url:"/upload/file",
+        method:"post",
+        data:form
+    }).then(function(response){
+        console.log(response.data);
+    })
+
+}
+
+
+
+</script>
 </html>
