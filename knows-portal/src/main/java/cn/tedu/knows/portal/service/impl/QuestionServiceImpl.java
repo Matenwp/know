@@ -18,6 +18,7 @@ import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -94,6 +95,10 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     private IUserService userService;
 
     @Override
+    //@Transactional标记上业务逻辑层的方法上
+    //SpringBoot封装的功能,将下面方法定义为一个事务
+    //这个方法中的所有对数据库的操作要么都执行,要么都回滚
+    @Transactional
     public void saveQuestion(QuestionVo questionVo, String username) {
         //1.根据用户名查询用户信息
         User user=userMapper.findUserByUsername(username);
