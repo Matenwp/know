@@ -28,22 +28,18 @@ public class SystemController {
             // 验证规则就是这个类中编写的规则
             @Validated RegisterVo registerVo,
             //BindingResult就是接收验证结果和错误信息的类型
-            BindingResult result){
+            BindingResult result) {
         //如果SpringValidation验证有错误
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             //获得错误信息
-            String msg=result.getFieldError().getDefaultMessage();
+            String msg = result.getFieldError().getDefaultMessage();
             return msg;
         }
-        log.debug("收到学生注册信息:{}",registerVo);
-        try {
-            userService.registerStudent(registerVo);
-            return "注册完成";
-        }catch(ServiceException e){
-            //将异常信息输出到控制台
-            log.error("注册失败",e);
-            return e.getMessage();
-        }
+        log.debug("收到学生注册信息:{}", registerVo);
+
+        userService.registerStudent(registerVo);
+        return "注册完成";
+
 
     }
 
