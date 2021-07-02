@@ -4,11 +4,8 @@ import cn.tedu.knows.portal.exception.ServiceException;
 import cn.tedu.knows.portal.mapper.QuestionTagMapper;
 import cn.tedu.knows.portal.mapper.UserMapper;
 import cn.tedu.knows.portal.mapper.UserQuestionMapper;
-import cn.tedu.knows.portal.model.Question;
+import cn.tedu.knows.portal.model.*;
 import cn.tedu.knows.portal.mapper.QuestionMapper;
-import cn.tedu.knows.portal.model.QuestionTag;
-import cn.tedu.knows.portal.model.Tag;
-import cn.tedu.knows.portal.model.User;
 import cn.tedu.knows.portal.service.IQuestionService;
 import cn.tedu.knows.portal.service.ITagService;
 import cn.tedu.knows.portal.service.IUserService;
@@ -93,10 +90,8 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     private QuestionTagMapper questionTagMapper;
     @Autowired
     private UserQuestionMapper userQuestionMapper;
-
     @Autowired
     private IUserService userService;
-
 
     @Override
     public void saveQuestion(QuestionVo questionVo, String username) {
@@ -144,12 +139,21 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         }
 
         //6.新增User(讲师)和Question的关系
-        //
-
-
-
-
-
+        //获得包含所有讲师的Map
+        Map<String,User> teacherMap=userService.getTeacherMap();
+        for(String nickname : questionVo.getTeacherNicknames()){
+            User teacher=teacherMap.get(nickname);
+            UserQuestion userQuestion=new UserQuestion()
+                    .setQuestionId(question.getId())
+                    //        ↓↓↓↓↓↓↓↓ 不是user,是teacher
+                    .setUserId(teacher.getId())
+                    .setCreatetime(LocalDateTime.now());
+            num=userQuestionMapper.insert(userQuestion);
+            if(num!=1){
+                throw new ServiceException("服务器忙");
+            }
+            log.debug("新增了讲师和问题的关系:{}",userQuestion);
+        }
     }
 
 

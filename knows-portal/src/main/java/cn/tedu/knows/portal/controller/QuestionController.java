@@ -1,6 +1,7 @@
 package cn.tedu.knows.portal.controller;
 
 
+import cn.tedu.knows.portal.exception.ServiceException;
 import cn.tedu.knows.portal.model.Question;
 import cn.tedu.knows.portal.service.IQuestionService;
 import cn.tedu.knows.portal.vo.QuestionVo;
@@ -63,7 +64,16 @@ public class QuestionController {
             String msg=result.getFieldError().getDefaultMessage();
             return msg;
         }
-        return "问题已发布";
+        //调用业务逻辑层的方法
+        try{
+            questionService.saveQuestion(
+                    questionVo,user.getUsername());
+            return "问题已发布";
+        }catch(ServiceException e){
+            log.error("发布失败",e);
+            return e.getMessage();
+        }
+
 
     }
 
