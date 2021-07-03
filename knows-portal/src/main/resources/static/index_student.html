@@ -269,9 +269,11 @@
     </div>
     <div class="col-md-12 col-lg-4 pb-2">
       <!--个人信息-->
-      <div class="container-fluid font-weight-light">
+      <div class="container-fluid font-weight-light"
+                                                id="userApp">
         <div class="card">
-          <h5 class="card-header">陈某</h5>
+          <h5 class="card-header"
+              v-text="user.nickname">陈某</h5>
           <div class="card-body">
             <div class="list-inline mb-1 ">
                 <a class="list-inline-item mx-3 my-1 text-center">
@@ -279,11 +281,11 @@
                   <div>回答</div>
                 </a>
                 <a class="list-inline-item mx-3 my-1 text-center" href="personal/myQuestion.html">
-                  <div><strong>10</strong></div>
+                  <div><strong v-text="user.questions">10</strong></div>
                   <div>提问</div>
                 </a>
                 <a class="list-inline-item mx-3 my-1 text-center" href="personal/collect.html">
-                  <div><strong>10</strong></div>
+                  <div><strong v-text="user.collections">10</strong></div>
                   <div>收藏</div>
                 </a>
                 <a class="list-inline-item mx-3 my-1 text-center" href="personal/task.html">
@@ -492,4 +494,5 @@
 <script src="js/utils.js"></script>
 <script src="js/tags_nav.js"></script>
 <script src="js/index.js"></script>
+<script src="js/user_info.js"></script>
 </html>

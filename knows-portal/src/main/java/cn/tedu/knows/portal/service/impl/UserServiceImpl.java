@@ -7,8 +7,10 @@ import cn.tedu.knows.portal.model.Classroom;
 import cn.tedu.knows.portal.model.User;
 import cn.tedu.knows.portal.mapper.UserMapper;
 import cn.tedu.knows.portal.model.UserRole;
+import cn.tedu.knows.portal.service.IQuestionService;
 import cn.tedu.knows.portal.service.IUserService;
 import cn.tedu.knows.portal.vo.RegisterVo;
+import cn.tedu.knows.portal.vo.UserVo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -18,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -142,5 +145,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             getTeachers();
         }
         return teacherMap;
+    }
+
+    @Resource
+    private IQuestionService questionService;
+    @Override
+    public UserVo getCurrentUserVo(String username) {
+        //获得当前用户的基本信息
+        UserVo userVo=userMapper.findUserVoByUsername(username);
+        //按用户id查询这个用户的提问数
+        int questions= questionService
+                .countQuestionsByUserId(userVo.getId());
+        //将提问数赋值给userVo对象
+        userVo.setQuestions(questions);
+        //下面自己做收藏数的代码
+        //别忘了返回userVo!!!
+        return userVo;
     }
 }

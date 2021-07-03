@@ -3,6 +3,7 @@ package cn.tedu.knows.portal;
 import cn.tedu.knows.portal.exception.ServiceException;
 import cn.tedu.knows.portal.mapper.ClassroomMapper;
 import cn.tedu.knows.portal.model.Classroom;
+import cn.tedu.knows.portal.service.IQuestionService;
 import cn.tedu.knows.portal.service.IUserService;
 import cn.tedu.knows.portal.service.impl.UserServiceImpl;
 import cn.tedu.knows.portal.vo.RegisterVo;
@@ -11,6 +12,8 @@ import com.baomidou.mybatisplus.extension.api.R;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.annotation.Resource;
 
 @SpringBootTest
 public class ClassroomTest {
@@ -51,6 +54,14 @@ public class ClassroomTest {
         }
         System.out.println("完成");
 
+    }
+
+    @Resource
+    IQuestionService questionService;
+    @Test
+    public void count(){
+        int count=questionService.countQuestionsByUserId(11);
+        System.out.println(count);
     }
 
 
