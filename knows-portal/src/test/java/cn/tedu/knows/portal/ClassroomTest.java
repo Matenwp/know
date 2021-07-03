@@ -2,7 +2,9 @@ package cn.tedu.knows.portal;
 
 import cn.tedu.knows.portal.exception.ServiceException;
 import cn.tedu.knows.portal.mapper.ClassroomMapper;
+import cn.tedu.knows.portal.mapper.UserMapper;
 import cn.tedu.knows.portal.model.Classroom;
+import cn.tedu.knows.portal.model.Role;
 import cn.tedu.knows.portal.service.IQuestionService;
 import cn.tedu.knows.portal.service.IUserService;
 import cn.tedu.knows.portal.service.impl.UserServiceImpl;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @SpringBootTest
 public class ClassroomTest {
@@ -62,6 +65,16 @@ public class ClassroomTest {
     public void count(){
         int count=questionService.countQuestionsByUserId(11);
         System.out.println(count);
+    }
+
+    @Resource
+    UserMapper userMapper;
+    @Test
+    void role(){
+        List<Role> roles=userMapper.findUserRolesById(3);
+        for(Role r:roles){
+            System.out.println(r);
+        }
     }
 
 
