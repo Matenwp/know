@@ -6,6 +6,7 @@ import cn.tedu.knows.portal.service.IUserService;
 import cn.tedu.knows.portal.vo.RegisterVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,8 +49,13 @@ public class SystemController {
         return "注册完成";
     }
 
+    @Value("${knows.resource.path}")
+    private File resourcePath;
+    @Value("${knows.resource.host}")
+    private String resourceHost;
+    //http://localhost:8899/2021/07/02/abc.jpg
+    //     resourceHost  +/+  path  +/+  name
 
-    private File resourcePath=new File("G:/upload");
     //文件上传的方法
     @PostMapping("/upload/file")
     public String uploadFile(MultipartFile imageFile) throws IOException {
@@ -76,8 +82,8 @@ public class SystemController {
         //将文件保存到上面file指定的位置
         imageFile.transferTo(file);
         log.debug("保存的实际路径为:{}",file.getAbsolutePath());
-
-        return "ok";
+        String url=resourceHost+"/"+path+"/"+name;
+        return url;
     }
 
 

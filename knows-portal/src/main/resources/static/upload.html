@@ -17,7 +17,7 @@
     </div>
     <button type="submit">上传文件</button>
 </form>
-<img id="image" src=""  alt="">
+<img id="image" src="http://localhost:8899/2021/07/02/abc.jpg"  alt="">
 </body>
 <script>
 //定义文件上传的方法,表单提交时运行的方法
@@ -48,6 +48,9 @@ function uploadImage(file){
         data:form
     }).then(function(response){
         console.log(response.data);
+        //将返回的图片路径赋值为img标签的src属性用于显示
+        $("#image").attr("src",response.data);
+
     })
 
 }
