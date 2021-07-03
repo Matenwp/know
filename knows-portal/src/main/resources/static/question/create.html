@@ -489,7 +489,27 @@
       height: 300,
       tabsize: 2,
       lang: 'zh-CN',
-      placeholder: '请输入问题的详细描述...'
+      placeholder: '请输入问题的详细描述...',
+      callbacks:{
+        onImageUpload:function(files){
+          //参数是用户选中的图片,默认是数组,我们获得其中第一个元素
+          let file=files[0];
+          let form=new FormData();
+          form.append("imageFile",file);
+          axios({
+            url:"/upload/file",
+            method:"post",
+            data:form
+          }).then(function(response){
+            //创建一个img标签对象
+            let img=new Image();
+            //为src属性赋值
+            img.src=response.data;
+            //将这个标签添加到富文本编辑器的内容中
+            $("#summernote").summernote("insertNode",img);
+          })
+        }
+      }
     });
     $('select').select2({placeholder:'请选择...'});
   });

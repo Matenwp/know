@@ -188,9 +188,14 @@
             <div class="media-body w-50">
               <div class="row">
                 <div class="col-md-12 col-lg-2">
-                  <span class="badge badge-pill badge-warning" style="display: none">未回复</span>
-                  <span class="badge badge-pill badge-info" style="display: none">已回复</span>
-                  <span class="badge badge-pill badge-success">已解决</span>
+                  <span class="badge badge-pill badge-warning"
+                        style="display: none"
+                        v-show="question.status==0">未回复</span>
+                  <span class="badge badge-pill badge-info"
+                        style="display: none"
+                        v-show="question.status==1">已回复</span>
+                  <span class="badge badge-pill badge-success"
+                        v-show="question.status==2">已解决</span>
                 </div>
                 <div class="col-md-12 col-lg-10">
                   <h5 class="mt-0 mb-1 text-truncate">
