@@ -161,7 +161,14 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         }
     }
 
-
+    @Override
+    public Integer countQuestionsByUserId(Integer userId) {
+        QueryWrapper<Question> query=new QueryWrapper<>();
+        query.eq("user_id",userId);
+        query.eq("delete_status",0);
+        Integer count=questionMapper.selectCount(query);
+        return count;
+    }
 
 
 }

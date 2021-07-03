@@ -24,5 +24,7 @@ public interface IQuestionService extends IService<Question> {
     //新增问题的业务逻辑层方法
     void saveQuestion(QuestionVo questionVo,String username);
 
+    // 根据用户id查询当前用户问题数的方法
+    Integer countQuestionsByUserId(Integer userId);
 
 }
