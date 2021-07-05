@@ -27,4 +27,10 @@ public interface IQuestionService extends IService<Question> {
     // 根据用户id查询当前用户问题数的方法
     Integer countQuestionsByUserId(Integer userId);
 
+    // 查询登录讲师的任务列表
+    PageInfo<Question> getTeacherQuestions(
+            String username,Integer pageNum,Integer pageSize);
+
+
+
 }

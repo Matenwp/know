@@ -8,6 +8,7 @@ import cn.tedu.knows.portal.vo.QuestionVo;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
@@ -73,10 +74,24 @@ public class QuestionController {
             log.error("发布失败",e);
             return e.getMessage();
         }
-
-
     }
 
+    //查询讲师首页的任务列表的控制器方法
+    @GetMapping("/teacher")
+    //这个注解会使Spring-Security框架自动判断当前登录用户是否有指定资格
+    //指定登录用户必须包含ROLE_TEACHER这个身份
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    public PageInfo teacher(
+            @AuthenticationPrincipal UserDetails user,
+            Integer pageNum){
+        if(pageNum==null)
+            pageNum=1;
+        Integer pageSize=8;
+        PageInfo<Question> pageInfo=questionService
+                .getTeacherQuestions(user.getUsername(),
+                        pageNum,pageSize);
+        return pageInfo;
+    }
 
 
 

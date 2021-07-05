@@ -170,5 +170,21 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         return count;
     }
 
+    @Override
+    public PageInfo<Question> getTeacherQuestions(String username, Integer pageNum, Integer pageSize) {
+        User user=userMapper.findUserByUsername(username);
+        //设置分页
+        PageHelper.startPage(pageNum,pageSize);
+        List<Question> questions=
+                questionMapper.findTeacherQuestions(user.getId());
+        //将查询出的问题包含的标签赋值
+        for(Question question: questions){
+            List<Tag> tags=tagName2Tags(question.getTagNames());
+            question.setTags(tags);
+        }
+        //别忘了返回!!!!
+        return new PageInfo<>(questions);
+    }
+
 
 }

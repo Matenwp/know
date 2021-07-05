@@ -2,8 +2,10 @@ package cn.tedu.knows.portal;
 
 import cn.tedu.knows.portal.exception.ServiceException;
 import cn.tedu.knows.portal.mapper.ClassroomMapper;
+import cn.tedu.knows.portal.mapper.QuestionMapper;
 import cn.tedu.knows.portal.mapper.UserMapper;
 import cn.tedu.knows.portal.model.Classroom;
+import cn.tedu.knows.portal.model.Question;
 import cn.tedu.knows.portal.model.Role;
 import cn.tedu.knows.portal.service.IQuestionService;
 import cn.tedu.knows.portal.service.IUserService;
@@ -78,6 +80,14 @@ public class ClassroomTest {
     }
 
 
+    @Resource
+    QuestionMapper questionMapper;
+    @Test
+    public void teacherList(){
+        List<Question> list=questionMapper
+                .findTeacherQuestions(3);
+        list.forEach(question -> System.out.println(question));
+    }
 
 
 
