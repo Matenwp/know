@@ -24,6 +24,7 @@
   <script src="bower_components/select2/dist/js/select2.min.js"></script>
   <script src="bower_components/select2/dist/js/i18n/zh-CN.js"></script>
   <script src="bower_components/vue-select/dist/vue-select.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <header class="container-fluid mb-3 bg-light">
@@ -169,15 +170,7 @@
 </header>
 
 <!--引入标签的导航栏-->
-<div class="container-fluid">
-  <div class="nav font-weight-light">
-    <a href="tag/tag_question.html" class="nav-item nav-link text-info"><small>全部</small></a>
-    <a href="tag/tag_question.html" class="nav-item nav-link text-info"><small>Java基础</small></a>
-    <a href="tag/tag_question.html" class="nav-item nav-link text-info"><small>Java OOP</small></a>
-    <a href="tag/tag_question.html" class="nav-item nav-link text-info"><small>JavaSE</small></a>
-    <a href="tag/tag_question.html" class="nav-item nav-link text-info"><small>WebServer</small></a>
-  </div>
-</div>
+<tagsapp id="tagsApp" :tags="tags"></tagsapp>
 <div class="container-fluid bg-light mt-3 mb-1">
   <div class="row">
     <div class="col-sm-12 col-md-8 pb-2 ">
@@ -252,31 +245,7 @@
     <!-- / class="col-8"-->
     <div class="col-sm-12 col-md-4  p-2">
       <!--个人信息-->
-      <div class="container-fluid font-weight-light">
-        <div class="card">
-          <h5 class="card-header">陈某</h5>
-          <div class="card-body">
-            <div class="list-inline mb-1 ">
-              <a class="list-inline-item mx-3 my-1 text-center">
-                <div><strong>10</strong></div>
-                <div>回答</div>
-              </a>
-              <a class="list-inline-item mx-3 my-1 text-center" href="personal/myQuestion.html">
-                <div><strong>10</strong></div>
-                <div>提问</div>
-              </a>
-              <a class="list-inline-item mx-3 my-1 text-center" href="personal/collect.html">
-                <div><strong>10</strong></div>
-                <div>收藏</div>
-              </a>
-              <a class="list-inline-item mx-3 my-1 text-center" href="personal/task.html">
-                <div><strong>10</strong></div>
-                <div>任务</div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <userapp id="userApp" :user="user"></userapp>
       <!--热点数据-->
       <div class="container-fluid bg-light mt-5">
         <h4 class="m-2 p-2 font-weight-light"><i class="fa fa-list" aria-hidden="true"></i> 热点问题</h4>
@@ -473,4 +442,9 @@
   </p>
 </footer>
 </body>
+<script src="js/utils.js"></script>
+<script src="js/tags_nav_temp.js"></script>
+<script src="js/tags_nav.js"></script>
+<script src="js/user_info_temp.js"></script>
+<script src="js/user_info.js"></script>
 </html>
