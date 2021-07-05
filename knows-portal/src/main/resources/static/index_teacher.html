@@ -179,66 +179,92 @@
         <div class="container-fluid">
           <h4 class="border-bottom m-2 p-2 font-weight-light"><i class="fa fa-tasks" aria-hidden="true"></i> 我的任务</h4>
           <div id="questionsApp">
-          <div class="row" style="display: none">
-            <div class="alert alert-warning w-100" role="alert">
-              抱歉您还没有提问内容， <a href="question/create.html" class="alert-link">您可以点击此处提问</a>，或者点击标签查看其它问答
+            <div class="row" style="display: none">
+              <div class="alert alert-warning w-100" role="alert">
+                抱歉您还没有提问内容， <a href="question/create.html" class="alert-link">您可以点击此处提问</a>，或者点击标签查看其它问答
+              </div>
             </div>
-          </div>
-          <div class="media bg-white m-2 p-3" >
-            <div class="media-body w-50">
-              <div class="row">
-                <div class="col-md-12 col-lg-2">
-                  <span class="badge badge-pill badge-warning" style="display: none">未回复</span>
-                  <span class="badge badge-pill badge-info" style="display: none">已回复</span>
-                  <span class="badge badge-pill badge-success">已解决</span>
+            <div class="media bg-white m-2 p-3"
+                 v-for="question in questions">
+              <div class="media-body w-50">
+                <div class="row">
+                  <div class="col-md-12 col-lg-2">
+                  <span class="badge badge-pill badge-warning"
+                        style="display: none"
+                        v-show="question.status==0">未回复</span>
+                    <span class="badge badge-pill badge-info"
+                          style="display: none"
+                          v-show="question.status==1">已回复</span>
+                    <span class="badge badge-pill badge-success"
+                          v-show="question.status==2">已解决</span>
+                  </div>
+                  <div class="col-md-12 col-lg-10">
+                    <h5 class="mt-0 mb-1 text-truncate">
+                      <a class="text-dark" href="question/detail.html"
+                         v-text="question.title"
+                         v-bind:href="'/question/detail_teacher.html?'+question.id" >
+                        eclipse 如何导入项目？
+                      </a>
+                    </h5>
+                  </div>
                 </div>
-                <div class="col-md-12 col-lg-10">
-                  <h5 class="mt-0 mb-1 text-truncate">
-                    <a class="text-dark" href="question/detail.html" >
-                      eclipse 如何导入项目？
-                    </a>
-                  </h5>
-                </div>
-              </div>
 
-              <div class="font-weight-light text-truncate text-wrap text-justify mb-2" style="height: 70px;">
-                <p>
-                  eclipse 如何导入项目？
-                </p>
-              </div>
-              <div class="row">
-                <div class="col-12 mt-1 text-info">
-                  <i class="fa fa-tags" aria-hidden="true"></i>
-                  <a class="text-info badge badge-pill bg-light" href="tag/tag_question.html"><small >Java基础 &nbsp;</small></a>
+                <div class="font-weight-light text-truncate text-wrap text-justify mb-2" style="height: 70px;">
+                  <p v-html="question.content">
+                    eclipse 如何导入项目？
+                  </p>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-12 text-right">
-                  <div class="list-inline mb-1 ">
-                    <small class="list-inline-item" >风继续吹</small>
-                    <small class="list-inline-item"><span>12</span>浏览</small>
-                    <small class="list-inline-item" >13分钟前</small>
+                <div class="row">
+                  <div class="col-12 mt-1 text-info">
+                    <i class="fa fa-tags" aria-hidden="true"></i>
+                    <a class="text-info badge badge-pill bg-light"
+                       href="tag/tag_question.html"
+                       v-for="tag in question.tags">
+                      <small v-text="tag.name" >Java基础 &nbsp;</small>
+                    </a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 text-right">
+                    <div class="list-inline mb-1 ">
+                      <small class="list-inline-item"
+                             v-text="question.userNickName">风继续吹</small>
+                      <small class="list-inline-item">
+                        <span v-text="question.pageViews">12</span>
+                        浏览</small>
+                      <small class="list-inline-item"
+                             v-text="question.duration">13分钟前</small>
+                    </div>
                   </div>
                 </div>
               </div>
+              <!-- / class="media-body"-->
+              <img src="img/tags/example0.jpg"
+                   class="ml-3 border img-fluid rounded"
+                   alt="" width="208" height="116"
+                   v-bind:src="question.tagImage">
+            </div>
+            <div class="row mt-2">
+              <div class="col-6 offset-3">
+                <nav aria-label="Page navigation example">
+                  <div class="pagination">
+                    <a class="page-item page-link" href="#"
+                       v-on:click.prevent="loadQuestions(pageinfo.prePage)">上一页</a>
+                    <a class="page-item page-link " href="#"
+                       v-for="n in pageinfo.navigatepageNums"
+                       v-on:click.prevent="loadQuestions(n)"
+                       v-bind:class="{'bg-secondary text-light':n==pageinfo.pageNum}"
+                    >
+                      <span v-text="n">1</span>
+                    </a>
+                    <a class="page-item page-link" href="#"
+                       v-on:click.prevent="loadQuestions(pageinfo.nextPage)">下一页</a>
+                  </div>
+                </nav>
+              </div>
 
             </div>
-            <!-- / class="media-body"-->
-            <img src="img/tags/example0.jpg"  class="ml-3 border img-fluid rounded" alt="" width="208" height="116">
           </div>
-          <div class="row mt-2">
-            <div class="col-6 offset-3">
-              <nav aria-label="Page navigation example">
-                <div class="pagination">
-                  <a class="page-item page-link" href="#" >上一页</a>
-                  <a class="page-item page-link " href="#" >1</a>
-                  <a class="page-item page-link" href="#" >下一页</a>
-                </div>
-              </nav>
-            </div>
-
-          </div>
-      	  </div>
         </div>
       </div>
     </div>
@@ -447,4 +473,5 @@
 <script src="js/tags_nav.js"></script>
 <script src="js/user_info_temp.js"></script>
 <script src="js/user_info.js"></script>
+<script src="js/index_teacher.js"></script>
 </html>
