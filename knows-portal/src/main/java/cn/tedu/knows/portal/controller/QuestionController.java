@@ -13,11 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -92,6 +88,24 @@ public class QuestionController {
                         pageNum,pageSize);
         return pageInfo;
     }
+
+    //根据问题id 查询问题详情
+    // /v1/questions/153
+    // 遇到上面这样的路径,没有直接匹配的控制器方法
+    // 那么SpringMvc就会匹配使用{}占位的方法来调用
+    @GetMapping("/{id}")
+    //如果想获得由{id}占位符替代的数据
+    //需要在控制方法中添加@PathVariable注解声明一个参数
+    //这个参数的名称必须和{id}中{}里的标识符名称对应
+    public Question question(
+            @PathVariable Integer id){
+        if(id==null)
+            throw new ServiceException("ID不能为空");
+        Question question=questionService.getQuestionById(id);
+        return question;
+    }
+
+
 
 
 

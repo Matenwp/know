@@ -32,5 +32,7 @@ public interface IQuestionService extends IService<Question> {
             String username,Integer pageNum,Integer pageSize);
 
 
+    // 根据问题id查询问题详情
+    Question getQuestionById(Integer id);
 
 }

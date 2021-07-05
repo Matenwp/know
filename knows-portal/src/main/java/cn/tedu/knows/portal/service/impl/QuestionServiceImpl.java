@@ -186,5 +186,16 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         return new PageInfo<>(questions);
     }
 
+    // 根据问题id返回问题详情
+    @Override
+    public Question getQuestionById(Integer id) {
+        Question question=questionMapper.selectById(id);
+        //为question对象的tags赋值
+        List<Tag> tags=tagName2Tags(question.getTagNames());
+        question.setTags(tags);
+        //千万别忘了返回!!!!
+        return question;
+    }
+
 
 }
