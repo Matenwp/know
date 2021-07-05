@@ -24,7 +24,27 @@ let questionApp =new Vue({
                 method:"get"
             }).then(function(response){
                 questionApp.question=response.data;
+                questionApp.updateDuration();
             })
+        },
+        updateDuration:function(){
+            //创建问题时候的时间毫秒数
+            let createtime = new Date(this.question.createtime).getTime();
+            //当前时间毫秒数
+            let now = new Date().getTime();
+            let duration = now - createtime;
+            if (duration < 1000*60){ //一分钟以内
+                this.question.duration = "刚刚";
+            }else if(duration < 1000*60*60){ //一小时以内
+                this.question.duration =
+                    (duration/1000/60).toFixed(0)+"分钟以前";
+            }else if (duration < 1000*60*60*24){
+                this.question.duration =
+                    (duration/1000/60/60).toFixed(0)+"小时以前";
+            }else {
+                this.question.duration =
+                    (duration/1000/60/60/24).toFixed(0)+"天以前";
+            }
         }
     },
     created:function(){
