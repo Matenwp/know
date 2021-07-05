@@ -24,7 +24,7 @@
   <script src="../bower_components/select2/dist/js/select2.min.js"></script>
   <script src="../bower_components/select2/dist/js/i18n/zh-CN.js"></script>
   <script src="../bower_components/vue-select/dist/vue-select.js"></script>
-
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <header class="container-fluid mb-3 bg-light">
@@ -184,7 +184,7 @@
 <div class="container-fluid bg-white mt-3">
   <div class="row">
     <div class="col-9 px-0 ">
-      <div class="container-fluid bg-light">
+      <div class="container-fluid bg-light" id="questionApp">
         <div class="row">
           <div class="col-2 px-0  ">
             <div class="container-fluid ">
@@ -214,7 +214,10 @@
             <div class="container-fluid ">
               <div class="row px-0 mb-3">
                 <div class="col-9 px-0">
-                  <a class="badge badge-pill  badge-info mx-1" href="../tag/tag_question.html">Java基础</a>
+                  <a class="badge badge-pill badge-info mx-1"
+                     href="../tag/tag_question.html"
+                     v-for="tag in question.tags"
+                     v-text="tag.name" >Java基础</a>
                 </div>
                 <div class="col-3 px-0">
                   <div class="row px-0">
@@ -225,21 +228,25 @@
                     </div>
                     <div class="col">
                       <p class="font-weight-light mb-0">浏览</p>
-                      <p class="font-weight-bold mt-1">100</p>
+                      <p class="font-weight-bold mt-1"
+                       v-text="question.pageViews">100</p>
                     </div>
                   </div>
                 </div>
               </div>
-              <p class=" px-0 text-center font-weight-bold" style="font-size: x-large" >
+              <p class=" px-0 text-center font-weight-bold" style="font-size: x-large"
+                v-text="question.title">
                 Java中方法重载和重写的区别
               </p>
-
-              <div class="px-0 container-fluid question-content" >
+              <div class="px-0 container-fluid question-content"
+                v-html="question.content">
                 请问的方法中重写和重载的区别都是什么，如何使用
               </div>
               <p class="text-right px-0 mt-5">
-                <span class="font-weight-light badge badge-primary">张三</span>
-                <span class="font-weight-light badge badge-info">3天前</span>
+                <span class="font-weight-light badge badge-primary"
+                  v-text="question.userNickName">张三</span>
+                <span class="font-weight-light badge badge-info"
+                  v-text="question.duration">3天前</span>
               </p>
             </div>
 
@@ -604,4 +611,6 @@
   });
 </script>
 </body>
+<script src="../js/utils.js"></script>
+<script src="../js/question_detail.js"></script>
 </html>
