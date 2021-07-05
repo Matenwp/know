@@ -51,3 +51,54 @@ let questionApp =new Vue({
         this.loadQuestion();
     }
 })
+
+let postAnswerApp=new Vue({
+    el:"#postAnswerApp",
+    data:{
+        message:"",
+        hasError:false
+    },
+    methods: {
+        postAnswer:function(){
+            //判断url上有id
+            let qid=location.search;
+            if(!qid){
+                this.message="必须指定问题id";
+                this.hasError=true;
+                return;
+            }
+            //去掉?
+            qid=qid.substring(1);
+            //判断富文本编辑器中有内容
+            let content=$("#summernote").val();
+            if(!content){
+                this.message="回答内容不能为空";
+                this.hasError=true;
+                return;
+            }
+            //定义form表单对象
+            let form=new FormData();
+            form.append("questionId",qid);
+            form.append("content",content);
+            //发送axios请求
+            axios({
+                url:"/v1/answers",
+                method:"post",
+                data:form
+            }).then(function(response){
+                console.log(response.data);
+            })
+        }
+
+    }
+
+})
+
+
+
+
+
+
+
+
+
