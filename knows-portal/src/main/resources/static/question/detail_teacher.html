@@ -356,14 +356,17 @@
                       <a class="btn btn-primary mx-2"
                          href="#">采纳答案</a>
                       <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapseExample1"
-                         role="button" aria-expanded="false" aria-controls="collapseExample">
+                         role="button" aria-expanded="false" aria-controls="collapseExample"
+                          v-bind:href="'#addComment'+answer.id">
                         <i class="fa fa-edit"></i>添加评论
                       </a>
-
                     </p>
-                    <div class="collapse" id="collapseExample1">
+                    <div class="collapse" id="collapseExample1"
+                      v-bind:id="'addComment'+answer.id">
                       <div class="card card-body border-light">
-                        <form action="#" method="post" class="needs-validation" novalidate>
+                        <form action="#" method="post" class="needs-validation"
+                              novalidate
+                              v-on:submit.prevent="postComment(answer.id)">
                           <div class="form-group">
                             <textarea class="form-control" name="content" rows="3" required></textarea>
                             <div class="invalid-feedback">

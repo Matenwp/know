@@ -110,6 +110,26 @@ let answersApp=new Vue({
                     addDuration(answers[i]);
                 }
             })
+        },
+        postComment:function(answerId){
+            console.log("新增评论对应的回答id:"+answerId);
+            if(!answerId)
+                return;
+            //获得当前评论区域中的textarea
+            let textarea=$("#addComment"+answerId+" textarea")
+            let content=textarea.val();
+            if(!content)
+                return;
+            let form=new FormData();
+            form.append("answerId",answerId);
+            form.append("content",content);
+            axios({
+                url:"/v1/comments",
+                method:"post",
+                data:form
+            }).then(function(response){
+                console.log(response.data);
+            })
         }
     },
     created:function(){
