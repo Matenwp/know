@@ -37,19 +37,19 @@ public class AnswerController {
     @PostMapping("")
     //回答问题只有讲师可以执行
     @PreAuthorize("hasRole('TEACHER')")
-    public String addAnswer(
+    public Answer addAnswer(
             @Validated AnswerVo answerVo,
             BindingResult result,
             @AuthenticationPrincipal UserDetails user){
         log.debug("收到信息:{}",answerVo);
         if(result.hasErrors()){
             String msg=result.getFieldError().getDefaultMessage();
-            return msg;
+            throw new ServiceException(msg);
         }
         //新增的代码↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
         Answer answer=answerService
                 .saveAnswer(answerVo,user.getUsername());
-        return "答案已提交";
+        return answer;
     }
 
     //按问题id查询所有回答的控制层方法

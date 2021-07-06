@@ -39,7 +39,32 @@ let UNPROCESABLE_ENTITY = 422;
 /** 500 INTERNAL SERVER ERROR - [*]：服务器发生错误，用户将无法判断发出的请求是否成功。 */
 let INTERNAL_SERVER_ERROR = 500;
 
+// 计算持续时间的方法
+function addDuration(item){
+    //判断item参数是否能够计算持续时间
+    // item不能是null   item.createtime属性 不能是null
+    if(!item || !item.createtime){
+        return;
+    }
+    //创建问题时候的时间毫秒数
+    let createtime = new Date(item.createtime).getTime();
+    //当前时间毫秒数
+    let now = new Date().getTime();
+    let duration = now - createtime;
+    if (duration < 1000*60){ //一分钟以内
+        item.duration = "刚刚";
+    }else if(duration < 1000*60*60){ //一小时以内
+        item.duration =
+            (duration/1000/60).toFixed(0)+"分钟以前";
+    }else if (duration < 1000*60*60*24){
+        item.duration =
+            (duration/1000/60/60).toFixed(0)+"小时以前";
+    }else {
+        item.duration =
+            (duration/1000/60/60/24).toFixed(0)+"天以前";
+    }
 
+}
 
 
 

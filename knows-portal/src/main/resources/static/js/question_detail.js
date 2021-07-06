@@ -24,27 +24,8 @@ let questionApp =new Vue({
                 method:"get"
             }).then(function(response){
                 questionApp.question=response.data;
-                questionApp.updateDuration();
+                addDuration(questionApp.question);
             })
-        },
-        updateDuration:function(){
-            //创建问题时候的时间毫秒数
-            let createtime = new Date(this.question.createtime).getTime();
-            //当前时间毫秒数
-            let now = new Date().getTime();
-            let duration = now - createtime;
-            if (duration < 1000*60){ //一分钟以内
-                this.question.duration = "刚刚";
-            }else if(duration < 1000*60*60){ //一小时以内
-                this.question.duration =
-                    (duration/1000/60).toFixed(0)+"分钟以前";
-            }else if (duration < 1000*60*60*24){
-                this.question.duration =
-                    (duration/1000/60/60).toFixed(0)+"小时以前";
-            }else {
-                this.question.duration =
-                    (duration/1000/60/60/24).toFixed(0)+"天以前";
-            }
         }
     },
     created:function(){
@@ -87,6 +68,15 @@ let postAnswerApp=new Vue({
                 data:form
             }).then(function(response){
                 console.log(response.data);
+                //新增成功之后的操作
+                let answer=response.data;
+                //我们需要将新增成功的answer对象
+                // 添加在当前保存所有回答的列表中
+                answersApp.answers.push(answer);
+                //将当前富文本编辑器内容清空
+                $("#summernote").summernote("reset");
+                // 无论之前是否发生错误提示,在新增成功时,都将这个提示隐藏
+                postAnswerApp.hasError=false;
             })
         }
 
@@ -111,7 +101,13 @@ let answersApp=new Vue({
                 url:"/v1/answers/question/"+qid,
                 method:"get",
             }).then(function(response){
+                console.log(response.data);
                 answersApp.answers=response.data;
+                //下面是计算持续时间的方法调用
+                let answers=answersApp.answers;
+                for(let i=0;i<answers.length;i++){
+                    addDuration(answers[i]);
+                }
             })
         }
     },
