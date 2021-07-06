@@ -1,6 +1,7 @@
 package cn.tedu.knows.portal.controller;
 
 
+import cn.tedu.knows.portal.model.Answer;
 import cn.tedu.knows.portal.service.IAnswerService;
 import cn.tedu.knows.portal.vo.AnswerVo;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +47,8 @@ public class AnswerController {
             String msg=result.getFieldError().getDefaultMessage();
             return msg;
         }
-
+        Answer answer=answerService
+                .saveAnswer(answerVo,user.getUsername());
         return "答案已提交";
     }
 
