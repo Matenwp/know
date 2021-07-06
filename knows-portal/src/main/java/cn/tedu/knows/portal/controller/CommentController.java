@@ -44,7 +44,10 @@ public class CommentController {
             String msg=result.getFieldError().getDefaultMessage();
             throw new ServiceException(msg);
         }
-        return null;
+        Comment comment=commentService.saveComment(
+                commentVo,user.getUsername());
+        //千万别忘了返回!!!
+        return comment;
     }
 
 
