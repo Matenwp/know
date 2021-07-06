@@ -39,6 +39,12 @@ public class Comment implements Serializable {
     private Integer userId;
 
     /**
+     * 用户昵称
+     */
+    @TableField("user_nick_name")
+    private String userNickName;
+
+    /**
      * 回答id
      */
     @TableField("answer_id")

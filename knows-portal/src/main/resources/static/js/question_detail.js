@@ -77,9 +77,10 @@ let postAnswerApp=new Vue({
                 $("#summernote").summernote("reset");
                 // 无论之前是否发生错误提示,在新增成功时,都将这个提示隐藏
                 postAnswerApp.hasError=false;
+                //设置当前回答的持续时间是:"刚刚"
+                answer.duration="刚刚";
             })
         }
-
     }
 })
 
