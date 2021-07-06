@@ -7,12 +7,14 @@ import cn.tedu.knows.portal.mapper.AnswerMapper;
 import cn.tedu.knows.portal.model.User;
 import cn.tedu.knows.portal.service.IAnswerService;
 import cn.tedu.knows.portal.vo.AnswerVo;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -46,5 +48,14 @@ public class AnswerServiceImpl extends ServiceImpl<AnswerMapper, Answer> impleme
         }
         //千万别忘了返回!!!
         return answer;
+    }
+
+    @Override
+    public List<Answer> getAnswersByQuestionId(Integer questionId) {
+        QueryWrapper<Answer> query=new QueryWrapper<>();
+        query.eq("quest_id",questionId);
+        List<Answer> answers=answerMapper.selectList(query);
+        //千万忘了返回!!!
+        return answers;
     }
 }

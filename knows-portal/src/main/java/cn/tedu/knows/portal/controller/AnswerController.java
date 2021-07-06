@@ -1,6 +1,7 @@
 package cn.tedu.knows.portal.controller;
 
 
+import cn.tedu.knows.portal.exception.ServiceException;
 import cn.tedu.knows.portal.model.Answer;
 import cn.tedu.knows.portal.service.IAnswerService;
 import cn.tedu.knows.portal.vo.AnswerVo;
@@ -10,12 +11,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -47,9 +46,27 @@ public class AnswerController {
             String msg=result.getFieldError().getDefaultMessage();
             return msg;
         }
+        //新增的代码↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
         Answer answer=answerService
                 .saveAnswer(answerVo,user.getUsername());
         return "答案已提交";
     }
+
+    //按问题id查询所有回答的控制层方法
+    //   /v1/answers/question/153
+    @GetMapping("/question/{id}")
+    public List<Answer> getQuestionAnswers(
+            @PathVariable Integer id){
+        if(id==null){
+            throw new ServiceException("问题id不能为空");
+        }
+        List<Answer> answers=answerService
+                .getAnswersByQuestionId(id);
+        return  answers;
+    }
+
+
+
+
 
 }

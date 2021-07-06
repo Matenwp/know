@@ -257,10 +257,15 @@
         <div class="row">
           <div class="col-12">
             <!--列出所有的答案-->
-            <div class="row mt-5 ml-2">
+            <div class="row mt-5 ml-2" id="answersApp">
               <div class="col-12">
-                <div class="well-sm"><h3>3条回答</h3></div>
-                <div class="card card-default my-5">
+                <div class="well-sm">
+                  <h3>
+                    <span v-text="answers.length">3</span>
+                    条回答</h3>
+                </div>
+                <div class="card card-default my-5"
+                  v-for="answer in answers">
                   <!-- Default panel contents -->
                   <div class="card-header">
                     <div class="row">
@@ -270,10 +275,12 @@
                       </div>
                       <div class="col-8 ">
                         <div class="row">
-                          <span class="ml-3">张三</span>
+                          <span class="ml-3"
+                            v-text="answer.userNickName">张三</span>
                         </div>
                         <div class="row">
-                          <span class="ml-3">2天前</span>
+                          <span class="ml-3"
+                            v-text="answer.duration">2天前</span>
                         </div>
 
                       </div>

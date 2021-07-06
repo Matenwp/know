@@ -91,7 +91,33 @@ let postAnswerApp=new Vue({
         }
 
     }
+})
 
+// 查询显示所有回答的
+let answersApp=new Vue({
+    el:"#answersApp",
+    data:{
+        answers:[]
+    },
+    methods:{
+        loadAnswers:function(){
+            let qid=location.search;
+            if(!qid){
+                alert("必须指定问题id");
+                return;
+            }
+            qid=qid.substring(1);
+            axios({
+                url:"/v1/answers/question/"+qid,
+                method:"get",
+            }).then(function(response){
+                answersApp.answers=response.data;
+            })
+        }
+    },
+    created:function(){
+        this.loadAnswers();
+    }
 })
 
 
