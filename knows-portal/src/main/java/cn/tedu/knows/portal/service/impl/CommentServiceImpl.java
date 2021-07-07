@@ -56,8 +56,14 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
             int num=commentMapper.deleteById(id);
             return num==1;
         }
-
-
-        return false;
+        //获得当前要删除的评论的详细信息
+        Comment comment=commentMapper.selectById(id);
+        //判断当前登录用户是不是评论的发布者
+        if(user.getId()==comment.getUserId()){
+            int num=commentMapper.deleteById(id);
+            return num == 1;
+        }
+        //上面两个if都不进,表示当前用户既不是讲师也不是评论的发布者
+        throw new ServiceException("您不能删除这个评论!");
     }
 }

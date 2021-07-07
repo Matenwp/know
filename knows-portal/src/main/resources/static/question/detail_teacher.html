@@ -309,7 +309,8 @@
                       <span v-text="answer.comments.length">1</span>条评论
                     </p>
                     <ul class="list-unstyled mt-3">
-                      <li class="media my-2" v-for="comment in answer.comments">
+                      <li class="media my-2"
+                          v-for="(comment,index) in answer.comments">
                         <img style="width: 50px;height: 50px;border-radius: 50%;"
                              src="../img/user.jpg" class="mr-3"
                              alt="...">
@@ -337,7 +338,7 @@
                             </a>
                             <a class="badge badge-pill badge-danger text-white"
                               style="display: none; cursor: pointer"
-                              @click="removeComment(comment.id)">
+                              @click="removeComment(comment.id,index,answer.comments)">
                               <i class="fa fa-close"></i>
                             </a>
 

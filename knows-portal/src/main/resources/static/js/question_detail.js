@@ -150,7 +150,7 @@ let answersApp=new Vue({
                 }
             })
         },
-        removeComment:function(commentId){
+        removeComment:function(commentId,index,comments){
             //如果commentId不存在
             if(!commentId)
                 return;
@@ -160,8 +160,15 @@ let answersApp=new Vue({
                 method:"get"
             }).then(function(response){
                 console.log(response.data);
+                if(response.data!="删除成功"){
+                    alert(response.data);
+                }else {
+                    //删除成功,从数组中移除指定位置元素
+                    //js代码中提供了删除数组中指定位置元素的api
+                    //splice([从数组中的哪个索引开始删],[删除几个])
+                    comments.splice(index,1)
+                }
             })
-
         }
     },
     created:function(){

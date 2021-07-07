@@ -10,10 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -49,6 +46,24 @@ public class CommentController {
         //千万别忘了返回!!!
         return comment;
     }
+
+    //  /v1/comments/82/delete
+    @GetMapping("/{id}/delete")
+    public String remove(
+            @PathVariable Integer id,
+            @AuthenticationPrincipal UserDetails user){
+        //执行业务逻辑层方法,使用boolean类型返回值接收
+        boolean isDelete=commentService
+                .removeCommentById(id,user.getUsername());
+        if(isDelete){
+            return "删除成功";
+        }else{
+            return "要删除的评论不存在";
+        }
+    }
+
+
+
 
 
 
