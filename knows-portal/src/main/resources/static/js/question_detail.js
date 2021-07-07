@@ -169,6 +169,28 @@ let answersApp=new Vue({
                     comments.splice(index,1)
                 }
             })
+        },
+        updateComment:function(commentId,answerId,index,comments){
+            let textarea=$("#editComment"+commentId+" textarea");
+            let content=textarea.val();
+            if(!content)
+                return;
+            let form=new FormData();
+            form.append("answerId",answerId);
+            form.append("content",content);
+            axios({
+                url:"/v1/comments/"+commentId+"/update",
+                method:"post",
+                data:form
+            }).then(function(response){
+                //comments[index]=response.data;
+                //由于comments已经是answers元素的子元素
+                //子元素中的元素进行修改时,不触发Vue的绑定数据更新
+                //我们需要使用下面的方法进行手动的更新
+                Vue.set(comments,index,response.data);
+                //修改成功后,将当前修改表单折叠隐藏
+                $("#editComment"+commentId).collapse("hide");
+            })
         }
     },
     created:function(){

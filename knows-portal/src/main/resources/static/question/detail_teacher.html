@@ -326,7 +326,8 @@
                                   style="font-size: small"></span>
                             <a class="text-primary ml-2"
                                style="font-size: small" data-toggle="collapse" href="#editCommemt1"
-                               role="button" aria-expanded="false" aria-controls="collapseExample">
+                               role="button" aria-expanded="false" aria-controls="collapseExample"
+                               v-bind:href="'#editComment'+comment.id">
                               <i class="fa fa-edit"></i>编辑
                             </a>
                             <!--老师角色或者属于本用户的评论可以删除该评论-->
@@ -343,13 +344,17 @@
                             </a>
 
                           </p>
-                          <div class="collapse" id="editCommemt1">
+                          <div class="collapse" id="editCommemt1"
+                            v-bind:id="'editComment'+comment.id">
                             <div class="card card-body border-light">
-                              <form action="" method="post" class="needs-validation" novalidate>
+                              <form action="" method="post" class="needs-validation"
+                                    novalidate
+                                    v-on:submit.prevent="updateComment(comment.id,
+                                                    answer.id,index,answer.comments)">
                                 <div class="form-group">
                                   <textarea class="form-control"
                                             id="textareaComment1" name="content" rows="4"
-                                            required></textarea>
+                                            required v-text="comment.content"></textarea>
                                   <div class="invalid-feedback">
                                     内容不能为空！
                                   </div>

@@ -62,9 +62,19 @@ public class CommentController {
         }
     }
 
-
-
-
-
-
+    @PostMapping("/{id}/update")
+    public Comment updateComment(
+            @PathVariable Integer id,
+            @Validated CommentVo commentVo,
+            BindingResult result,
+            @AuthenticationPrincipal UserDetails user){
+        log.debug("修改内容:{}",commentVo);
+        if(result.hasErrors()){
+            String msg=result.getFieldError().getDefaultMessage();
+            throw new ServiceException(msg);
+        }
+        Comment comment=commentService.updateComment(
+                id,commentVo,user.getUsername());
+        return comment;
+    }
 }

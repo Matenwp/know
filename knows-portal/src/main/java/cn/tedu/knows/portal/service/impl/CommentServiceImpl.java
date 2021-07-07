@@ -66,4 +66,22 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         //上面两个if都不进,表示当前用户既不是讲师也不是评论的发布者
         throw new ServiceException("您不能删除这个评论!");
     }
+
+    @Override
+    @Transactional
+    public Comment updateComment(Integer commentId,
+                   CommentVo commentVo, String username) {
+        User user=userMapper.findUserByUsername(username);
+        Comment comment=commentMapper.selectById(commentId);
+        if(user.getType()==1||user.getId()==comment.getUserId()){
+            int num=commentMapper.updateCommentContentById(
+                    commentVo.getContent(),commentId);
+            comment.setContent(commentVo.getContent());
+            if(num!=1){
+                throw new ServiceException("服务器忙");
+            }
+            return comment;
+        }
+        throw new ServiceException("您不能修改这个评论");
+    }
 }
