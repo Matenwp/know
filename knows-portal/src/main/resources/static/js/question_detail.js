@@ -149,6 +149,19 @@ let answersApp=new Vue({
                     }
                 }
             })
+        },
+        removeComment:function(commentId){
+            //如果commentId不存在
+            if(!commentId)
+                return;
+            axios({
+                //   /v1/comments/{id}/delete
+                url:"/v1/comments/"+commentId+"/delete",
+                method:"get"
+            }).then(function(response){
+                console.log(response.data);
+            })
+
         }
     },
     created:function(){

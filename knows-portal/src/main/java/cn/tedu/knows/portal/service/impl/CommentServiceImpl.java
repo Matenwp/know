@@ -46,4 +46,18 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         // 别忘了返回
         return comment;
     }
+
+    @Override
+    public boolean removeCommentById(Integer id, String username) {
+        // 根据用户名查询用户信息
+        User user=userMapper.findUserByUsername(username);
+        //判断是不是讲师
+        if(user.getType()==1){
+            int num=commentMapper.deleteById(id);
+            return num==1;
+        }
+
+
+        return false;
+    }
 }

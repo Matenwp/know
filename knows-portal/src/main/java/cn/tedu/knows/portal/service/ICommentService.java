@@ -16,4 +16,9 @@ public interface ICommentService extends IService<Comment> {
 
     //新增评论的方法
     Comment saveComment(CommentVo commentVo,String username);
+
+    //按评论id删除评论的方法
+    boolean removeCommentById(Integer id,String username);
+
+
 }
