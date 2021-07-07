@@ -5,7 +5,7 @@
 <mapper namespace="cn.tedu.knows.portal.mapper.AnswerMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.tedu.knows.portal.model.Answer">
+    <resultMap id="answerCommentMap" type="cn.tedu.knows.portal.model.Answer">
         <id column="id" property="id" />
         <result column="content" property="content" />
         <result column="like_count" property="likeCount" />
@@ -14,6 +14,44 @@
         <result column="quest_id" property="questId" />
         <result column="createtime" property="createtime" />
         <result column="accept_status" property="acceptStatus" />
+        <!-- collection标签来映射实体类对象中的集合类型属性 -->
+        <!-- property来指定属性的名称,如果属性是List不用声明属性类型 -->
+        <!--                        如果属性不是List 使用 javaType="java.util.Set"指定-->
+        <!-- ofType指定属性的泛型类型,全类名!  -->
+        <collection property="comments"
+                    ofType="cn.tedu.knows.portal.model.Comment">
+            <id column="comment_id" property="id"></id>
+            <result column="comment_user_id" property="userId"></result>
+            <result column="comment_user_nick_name" property="userNickName"></result>
+            <result column="comment_answer_id" property="answerId"></result>
+            <result column="comment_content" property="content"></result>
+            <result column="comment_createtime" property="createtime"></result>
+        </collection>
     </resultMap>
 
+    <!-- select标签表示对应AnswerMapper接口中的一个查询操作 -->
+    <!-- id对应的是接口中的方法名 -->
+    <!-- resultMap指定关联查询的映射配置 -->
+    <select id="findAnswersWithCommentsByQuestionId"
+        resultMap="answerCommentMap">
+        SELECT
+         a.id,
+         a.content,
+         a.like_count,
+         a.user_id,
+         a.user_nick_name,
+         a.quest_id,
+         a.createtime,
+         a.accept_status,
+         c.id 				comment_id,
+         c.user_id 			comment_user_id,
+         c.user_nick_name	comment_user_nick_name,
+         c.answer_id      comment_answer_id,
+         c.content        comment_content,
+         c.createtime     comment_createtime
+        FROM answer a
+        LEFT JOIN comment c ON a.id= c.answer_id
+        WHERE a.quest_id=#{id}
+        ORDER BY a.createtime,c.createtime
+    </select>
 </mapper>
