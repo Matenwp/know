@@ -305,17 +305,20 @@
 
                   </div>
                   <div class="card-footer">
-
-                    <p class="text-success fa fa-comment">1条评论</p>
+                    <p class="text-success fa fa-comment">
+                      <span v-text="answer.comments.length">1</span>条评论
+                    </p>
                     <ul class="list-unstyled mt-3">
-                      <li class="media my-2">
+                      <li class="media my-2" v-for="comment in answer.comments">
                         <img style="width: 50px;height: 50px;border-radius: 50%;"
                              src="../img/user.jpg" class="mr-3"
                              alt="...">
                         <div class="media-body">
-                          <h6 class="mt-0 mb-1"><span>李四</span>:</h6>
+                          <h6 class="mt-0 mb-1">
+                            <span v-text="comment.userNickName">李四</span>:</h6>
                           <p class="text-dark">
-                            <span class="text-monospace">
+                            <span class="text-monospace"
+                              v-text="comment.content">
                               明白了,谢谢老师！
                             </span>
                             <span class="font-weight-light text-info"

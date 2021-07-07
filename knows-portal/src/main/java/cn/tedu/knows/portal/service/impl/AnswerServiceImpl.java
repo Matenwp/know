@@ -52,9 +52,8 @@ public class AnswerServiceImpl extends ServiceImpl<AnswerMapper, Answer> impleme
 
     @Override
     public List<Answer> getAnswersByQuestionId(Integer questionId) {
-        QueryWrapper<Answer> query=new QueryWrapper<>();
-        query.eq("quest_id",questionId);
-        List<Answer> answers=answerMapper.selectList(query);
+        List<Answer> answers=answerMapper
+                .findAnswersWithCommentsByQuestionId(questionId);
         //千万忘了返回!!!
         return answers;
     }

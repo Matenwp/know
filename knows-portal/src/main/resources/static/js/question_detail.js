@@ -129,6 +129,25 @@ let answersApp=new Vue({
                 data:form
             }).then(function(response){
                 console.log(response.data);
+                //清空新增的文字
+                textarea.val("");
+                //将弹出的输入框折叠隐藏
+                $("#addComment"+answerId).collapse("hide");
+                //实现新增的评论立即显示在页面上
+                //原理是将新增的评论对象添加到对应的回答的评论数组中
+                //定义一个变量保存我么新增成功的评论
+                let comment=response.data;
+                //定义一个变量引用所有回答
+                let answers=answersApp.answers;
+                // 遍历所有回答
+                for(let i=0;i<answers.length;i++){
+                    //判断当前answers[i]是不是本次新增评论的回答
+                    if(answers[i].id == answerId){
+                        //如果是,将本次新增的评论添加到当前回答的评论数组中
+                        answers[i].comments.push(comment);
+                        return;
+                    }
+                }
             })
         }
     },
