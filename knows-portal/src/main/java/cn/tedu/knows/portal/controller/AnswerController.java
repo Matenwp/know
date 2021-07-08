@@ -65,6 +65,17 @@ public class AnswerController {
         return  answers;
     }
 
+    //采纳答案的控制层方法
+    @GetMapping("/{answerId}/solved")
+    public String solved(
+            @PathVariable Integer answerId){
+        boolean isAccept=answerService.accept(answerId);
+        if(isAccept){
+            return "采纳完成";
+        }else{
+            return "采纳失败,检查回答存在并且没有被采纳过";
+        }
+    }
 
 
 
