@@ -31,6 +31,10 @@ public class Question implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public static final Integer POSTED=0;  //已提交\未回复
+    public static final Integer SOLVING=1; //未采纳\已回复
+    public static final Integer SOLVED=2;  //已采纳\已解决
+
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 

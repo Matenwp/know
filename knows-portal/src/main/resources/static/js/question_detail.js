@@ -191,6 +191,14 @@ let answersApp=new Vue({
                 //修改成功后,将当前修改表单折叠隐藏
                 $("#editComment"+commentId).collapse("hide");
             })
+        },
+        answerSolved:function(answerId){
+            axios({
+                url:"/v1/answers/"+answerId+"/solved",
+                method:"get"
+            }).then(function(response){
+                console.log(response.data);
+            })
         }
     },
     created:function(){

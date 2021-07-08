@@ -24,7 +24,7 @@
   <script src="../bower_components/select2/dist/js/select2.min.js"></script>
   <script src="../bower_components/select2/dist/js/i18n/zh-CN.js"></script>
   <script src="../bower_components/vue-select/dist/vue-select.js"></script>
-
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <header class="container-fluid mb-3 bg-light">
@@ -184,21 +184,14 @@
 <div class="container-fluid bg-white mt-3">
   <div class="row">
     <div class="col-9 px-0 ">
-      <div class="container-fluid bg-light">
+      <div class="container-fluid bg-light" id="questionApp">
         <div class="row">
           <div class="col-2 px-0  ">
             <div class="container-fluid ">
-              <div class="row  mt-4 mx-0 px-0" >
-                <a class="btn btn-outline-danger btn-md rounded-lg fa fa-close " style="font-size: x-small">删除</a>
-              </div>
 
               <div class="row mt-4 mx-0 px-0" >
                 <a class="btn btn-outline-primary btn-md rounded-lg fa fa-edit " style="font-size: x-small"
                    href="../question/edit.html">编辑</a>
-              </div>
-              <div class="row mt-4 mx-0 px-0">
-                <a class="btn btn-outline-info btn-md rounded-lg fa fa-pencil " style="font-size: x-small"
-                   href="#writeAnswer">回答</a>
               </div>
               <div class="row mt-4 mx-0 px-0" id="collectApp">
                 <a class="btn btn-outline-secondary btn-md rounded-lg fa fa-star "
@@ -214,7 +207,10 @@
             <div class="container-fluid ">
               <div class="row px-0 mb-3">
                 <div class="col-9 px-0">
-                  <a class="badge badge-pill  badge-info mx-1" href="../tag/tag_question.html">Java基础</a>
+                  <a class="badge badge-pill badge-info mx-1"
+                     href="../tag/tag_question.html"
+                     v-for="tag in question.tags"
+                     v-text="tag.name" >Java基础</a>
                 </div>
                 <div class="col-3 px-0">
                   <div class="row px-0">
@@ -225,21 +221,25 @@
                     </div>
                     <div class="col">
                       <p class="font-weight-light mb-0">浏览</p>
-                      <p class="font-weight-bold mt-1">100</p>
+                      <p class="font-weight-bold mt-1"
+                       v-text="question.pageViews">100</p>
                     </div>
                   </div>
                 </div>
               </div>
-              <p class=" px-0 text-center font-weight-bold" style="font-size: x-large" >
+              <p class=" px-0 text-center font-weight-bold" style="font-size: x-large"
+                v-text="question.title">
                 Java中方法重载和重写的区别
               </p>
-
-              <div class="px-0 container-fluid question-content" >
+              <div class="px-0 container-fluid question-content"
+                v-html="question.content">
                 请问的方法中重写和重载的区别都是什么，如何使用
               </div>
               <p class="text-right px-0 mt-5">
-                <span class="font-weight-light badge badge-primary">张三</span>
-                <span class="font-weight-light badge badge-info">3天前</span>
+                <span class="font-weight-light badge badge-primary"
+                  v-text="question.userNickName">张三</span>
+                <span class="font-weight-light badge badge-info"
+                  v-text="question.duration">3天前</span>
               </p>
             </div>
 
@@ -250,10 +250,15 @@
         <div class="row">
           <div class="col-12">
             <!--列出所有的答案-->
-            <div class="row mt-5 ml-2">
+            <div class="row mt-5 ml-2" id="answersApp">
               <div class="col-12">
-                <div class="well-sm"><h3>3条回答</h3></div>
-                <div class="card card-default my-5">
+                <div class="well-sm">
+                  <h3>
+                    <span v-text="answers.length">3</span>
+                    条回答</h3>
+                </div>
+                <div class="card card-default my-5"
+                  v-for="answer in answers">
                   <!-- Default panel contents -->
                   <div class="card-header">
                     <div class="row">
@@ -263,10 +268,12 @@
                       </div>
                       <div class="col-8 ">
                         <div class="row">
-                          <span class="ml-3">张三</span>
+                          <span class="ml-3"
+                            v-text="answer.userNickName">张三</span>
                         </div>
                         <div class="row">
-                          <span class="ml-3">2天前</span>
+                          <span class="ml-3"
+                            v-text="answer.duration">2天前</span>
                         </div>
 
                       </div>
@@ -291,41 +298,56 @@
 
                   </div>
                   <div class="card-footer">
-
-                    <p class="text-success fa fa-comment">1条评论</p>
+                    <p class="text-success fa fa-comment">
+                      <span v-text="answer.comments.length">1</span>条评论
+                    </p>
                     <ul class="list-unstyled mt-3">
-                      <li class="media my-2">
+                      <li class="media my-2"
+                          v-for="(comment,index) in answer.comments">
                         <img style="width: 50px;height: 50px;border-radius: 50%;"
                              src="../img/user.jpg" class="mr-3"
                              alt="...">
                         <div class="media-body">
-                          <h6 class="mt-0 mb-1"><span>李四</span>:</h6>
+                          <h6 class="mt-0 mb-1">
+                            <span v-text="comment.userNickName">李四</span>:</h6>
                           <p class="text-dark">
-                            <span class="text-monospace">
+                            <span class="text-monospace"
+                              v-text="comment.content">
                               明白了,谢谢老师！
                             </span>
                             <span class="font-weight-light text-info"
                                   style="font-size: small"></span>
                             <a class="text-primary ml-2"
                                style="font-size: small" data-toggle="collapse" href="#editCommemt1"
-                               role="button" aria-expanded="false" aria-controls="collapseExample">
+                               role="button" aria-expanded="false" aria-controls="collapseExample"
+                               v-bind:href="'#editComment'+comment.id">
                               <i class="fa fa-edit"></i>编辑
                             </a>
                             <!--老师角色或者属于本用户的评论可以删除该评论-->
                             <a class="ml-2  fa fa-close " style="font-size: small"
                                data-toggle="collapse"  role="button"
-                               aria-expanded="false" aria-controls="collapseExample">
+                               aria-expanded="false" aria-controls="collapseExample"
+                               onclick="$(this).next().toggle(300)">
                               删除
+                            </a>
+                            <a class="badge badge-pill badge-danger text-white"
+                              style="display: none; cursor: pointer"
+                              @click="removeComment(comment.id,index,answer.comments)">
+                              <i class="fa fa-close"></i>
                             </a>
 
                           </p>
-                          <div class="collapse" id="editCommemt1">
+                          <div class="collapse" id="editCommemt1"
+                            v-bind:id="'editComment'+comment.id">
                             <div class="card card-body border-light">
-                              <form action="" method="post" class="needs-validation" novalidate>
+                              <form action="" method="post" class="needs-validation"
+                                    novalidate
+                                    v-on:submit.prevent="updateComment(comment.id,
+                                                    answer.id,index,answer.comments)">
                                 <div class="form-group">
                                   <textarea class="form-control"
                                             id="textareaComment1" name="content" rows="4"
-                                            required></textarea>
+                                            required v-text="comment.content"></textarea>
                                   <div class="invalid-feedback">
                                     内容不能为空！
                                   </div>
@@ -339,17 +361,27 @@
 
                     </ul>
                     <p class="text-left text-dark">
-                      <a class="btn btn-primary mx-2"
-                         href="#">采纳答案</a>
+                      <a class="btn btn-primary mx-2 text-white"
+                         onclick="$(this).next().toggle(300)">
+                         采纳答案
+                      </a>
+                      <a class="badge badge-pill badge-success text-white"
+                        style="display:none;cursor: pointer"
+                        @click="answerSolved(answer.id)">
+                        <i class="fa fa-check"></i>
+                      </a>
                       <a class="btn btn-outline-primary" data-toggle="collapse" href="#collapseExample1"
-                         role="button" aria-expanded="false" aria-controls="collapseExample">
+                         role="button" aria-expanded="false" aria-controls="collapseExample"
+                          v-bind:href="'#addComment'+answer.id">
                         <i class="fa fa-edit"></i>添加评论
                       </a>
-
                     </p>
-                    <div class="collapse" id="collapseExample1">
+                    <div class="collapse" id="collapseExample1"
+                      v-bind:id="'addComment'+answer.id">
                       <div class="card card-body border-light">
-                        <form action="#" method="post" class="needs-validation" novalidate>
+                        <form action="#" method="post" class="needs-validation"
+                              novalidate
+                              v-on:submit.prevent="postComment(answer.id)">
                           <div class="form-group">
                             <textarea class="form-control" name="content" rows="3" required></textarea>
                             <div class="invalid-feedback">
@@ -367,25 +399,6 @@
 
             </div><!--列出所有的答案-end-->
             <!--如果没有回答问题的权限就不显示回答框-->
-            <div class="container-fluid mt-4" id="writeAnswer">
-              <h5 class="text-info mb-2"><i class="fa fa-edit"></i>写答案</h5>
-              <form action="#" method="post" enctype="application/x-www-form-urlencoded"
-                    class="needs-validation" novalidate>
-                <div class="form-group">
-                  <textarea id="summernote" name="content" required ></textarea>
-                  <div class="invalid-feedback">
-                    <h5>回答内容不能为空！</h5>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <p class="text-right">
-                    <button type="submit" class="btn btn-primary">提交回答</button>
-                  </p>
-
-                </div>
-              </form>
-
-            </div>
 
           </div>
 
@@ -604,4 +617,6 @@
   });
 </script>
 </body>
+<script src="../js/utils.js"></script>
+<script src="../js/question_detail.js"></script>
 </html>

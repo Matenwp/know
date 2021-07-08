@@ -57,4 +57,9 @@ public class AnswerServiceImpl extends ServiceImpl<AnswerMapper, Answer> impleme
         //千万忘了返回!!!
         return answers;
     }
+
+    @Override
+    public boolean accept(Integer answerId) {
+        return false;
+    }
 }
