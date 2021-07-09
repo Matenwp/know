@@ -1,0 +1,16 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: sys-service
+  cloud:
+    nacos:
+      config:
+        # 我们没有配置namespace,默认就是public
+        # 我们可以不配置 Data Id 默认去解析当前项目名称.类型名称的配置文件
+        # 默认的Data Id生成为 sys-service.properties
+        server-addr: localhost:8848
+        file-extension: properties # 要确定引用配置文件的类型不能写错
+        group: DEFAULT_GROUP       # 配置当前信息的group的名称
+      discovery:
+        server-addr: localhost:8848 # 将当前项目注册到nacos
