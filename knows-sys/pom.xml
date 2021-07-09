@@ -22,10 +22,10 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>cn.tedu</groupId>-->
-        <!--            <artifactId>knows-commons</artifactId>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>cn.tedu</groupId>
+            <artifactId>knows-commons</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>

@@ -10,6 +10,7 @@
         <module name="knows-generator" />
         <module name="knows-resource" />
         <module name="knows-sys" />
+        <module name="knows-commons" />
         <module name="gateway" />
         <module name="knows-client" />
         <module name="knows-portal" />
@@ -19,6 +20,7 @@
       <module name="gateway" target="1.8" />
       <module name="knows" target="1.8" />
       <module name="knows-client" target="1.8" />
+      <module name="knows-commons" target="1.8" />
       <module name="knows-generator" target="1.8" />
       <module name="knows-portal" target="1.8" />
       <module name="knows-resource" target="1.8" />
@@ -30,6 +32,7 @@
       <module name="gateway" options="-parameters" />
       <module name="knows" options="-parameters" />
       <module name="knows-client" options="-parameters" />
+      <module name="knows-commons" options="-parameters" />
       <module name="knows-generator" options="-parameters" />
       <module name="knows-portal" options="-parameters" />
       <module name="knows-resource" options="-parameters" />

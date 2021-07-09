@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/knows-client/pom.xml" />
         <option value="$PROJECT_DIR$/knows-sys/pom.xml" />
+        <option value="$PROJECT_DIR$/knows-commons/pom.xml" />
       </list>
     </option>
   </component>

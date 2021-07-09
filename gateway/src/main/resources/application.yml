@@ -13,6 +13,10 @@ spring:
           enabled: true  #是否与服务注册于发现组件结合，通过 serviceId 转发到具体的服务
           lower-case-service-id: true
       routes:  # 开始路由配置
+        - id: gateway-sys
+          uri: lb://sys-service
+          predicates:
+            - Path=/v1/**
         - id: gateway-resource #路由配置的名称和具体服务无关
           # resource-server路由的服务器的名称
           # lb: 是 Load Balance(负载均衡)的缩写

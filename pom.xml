@@ -30,6 +30,7 @@
         <module>gateway</module>
         <module>knows-client</module>
         <module>knows-sys</module>
+        <module>knows-commons</module>
     </modules>
     <dependencies>
         <dependency>
