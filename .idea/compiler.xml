@@ -9,10 +9,12 @@
         <outputRelativeToContentRoot value="true" />
         <module name="knows-resource" />
         <module name="knows-generator" />
+        <module name="gateway" />
         <module name="knows-portal" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="gateway" target="1.8" />
       <module name="knows" target="1.8" />
       <module name="knows-generator" target="1.8" />
       <module name="knows-portal" target="1.8" />
@@ -21,6 +23,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="gateway" options="-parameters" />
       <module name="knows" options="-parameters" />
       <module name="knows-generator" options="-parameters" />
       <module name="knows-portal" options="-parameters" />

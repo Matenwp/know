@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/gateway/gateway.iml" filepath="$PROJECT_DIR$/gateway/gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/knows.iml" filepath="$PROJECT_DIR$/knows.iml" />
       <module fileurl="file://$PROJECT_DIR$/knows-generator/knows-generator.iml" filepath="$PROJECT_DIR$/knows-generator/knows-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/knows-portal/knows-portal.iml" filepath="$PROJECT_DIR$/knows-portal/knows-portal.iml" />
