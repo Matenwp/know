@@ -28,6 +28,8 @@
     <modules>
         <module>knows-resource</module>
         <module>gateway</module>
+        <module>knows-client</module>
+        <module>knows-sys</module>
     </modules>
     <dependencies>
         <dependency>
