@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/knows.iml" filepath="$PROJECT_DIR$/knows.iml" />
       <module fileurl="file://$PROJECT_DIR$/knows-client/knows-client.iml" filepath="$PROJECT_DIR$/knows-client/knows-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/knows-commons/knows-commons.iml" filepath="$PROJECT_DIR$/knows-commons/knows-commons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/knows-faq/knows-faq.iml" filepath="$PROJECT_DIR$/knows-faq/knows-faq.iml" />
       <module fileurl="file://$PROJECT_DIR$/knows-generator/knows-generator.iml" filepath="$PROJECT_DIR$/knows-generator/knows-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/knows-portal/knows-portal.iml" filepath="$PROJECT_DIR$/knows-portal/knows-portal.iml" />
       <module fileurl="file://$PROJECT_DIR$/knows-resource/knows-resource.iml" filepath="$PROJECT_DIR$/knows-resource/knows-resource.iml" />
