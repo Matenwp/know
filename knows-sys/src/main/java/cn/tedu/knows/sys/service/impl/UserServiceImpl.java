@@ -159,4 +159,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         //别忘了返回userVo!!!
         return userVo;
     }
+
+    @Override
+    public User getUserByUserName(String username) {
+        return userMapper.findUserByUsername(username);
+    }
 }

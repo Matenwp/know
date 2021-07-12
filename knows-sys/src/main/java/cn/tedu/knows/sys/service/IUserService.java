@@ -32,5 +32,8 @@ public interface IUserService extends IService<User> {
     //查询用户信息面板数据
     UserVo getCurrentUserVo(String username);
 
+    //根据用户名查询用户信息
+    User getUserByUserName(String username);
+
 
 }

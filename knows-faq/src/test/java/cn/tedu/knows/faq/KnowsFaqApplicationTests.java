@@ -1,10 +1,12 @@
 package cn.tedu.knows.faq;
 
 import cn.tedu.knows.commons.model.Tag;
+import cn.tedu.knows.commons.model.User;
 import cn.tedu.knows.faq.mapper.TagMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -39,5 +41,37 @@ class KnowsFaqApplicationTests {
         /*String string=redisTemplate.opsForValue().get("myname");
         System.out.println(string);*/
     }
+
+
+    @Resource
+    RestTemplate restTemplate;
+
+    @Test
+    void testRibbon(){
+        //定义访问控制器的url
+        //sys-service:是要调用的微服务的注册名称
+        // /v1/auth/demo:是要访问资源的路径
+        String url="http://sys-service/v1/auth/demo";
+        //返回值根据请求的方法的返回值而定
+        //getForObject方法第一个参数是上面定的url
+        //                第二个参数就是返回值类型的反射对象
+        String msg=restTemplate.getForObject(url,String.class);
+        System.out.println(msg);
+
+    }
+
+    @Test
+    void getUser(){
+        //注意参数的传递
+        //需要参数时使用?进行分割username对应sys控制器参数的名称
+        //{1}表示本次请求的第一个参数
+        String url="http://sys-service/v1/auth/user?username={1}";
+        // 从第3个参数开始向{1}中的占位符中赋值(框架规定,无法解释)
+        User user=restTemplate.getForObject(
+                url,User.class,"st2");
+        System.out.println(user);
+
+    }
+
 
 }
