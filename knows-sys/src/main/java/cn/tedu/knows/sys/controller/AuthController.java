@@ -31,6 +31,7 @@ public class AuthController {
     public List<Permission> permissions(Integer id){
         return userService.getUserPermissionsById(id);
     }
+
     @GetMapping("/roles")
     public List<Role> roles(Integer id){
         return userService.getUserRolesById(id);
