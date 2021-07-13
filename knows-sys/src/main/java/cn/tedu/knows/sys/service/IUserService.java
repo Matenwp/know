@@ -1,6 +1,8 @@
 package cn.tedu.knows.sys.service;
 
 
+import cn.tedu.knows.commons.model.Permission;
+import cn.tedu.knows.commons.model.Role;
 import cn.tedu.knows.commons.model.User;
 import cn.tedu.knows.sys.vo.RegisterVo;
 import cn.tedu.knows.sys.vo.UserVo;
@@ -35,5 +37,9 @@ public interface IUserService extends IService<User> {
     //根据用户名查询用户信息
     User getUserByUserName(String username);
 
+    //根据用户id查询权限
+    List<Permission> getUserPermissionsById(Integer id);
+    //根据用户id查询角色
+    List<Role> getUserRolesById(Integer id);
 
 }

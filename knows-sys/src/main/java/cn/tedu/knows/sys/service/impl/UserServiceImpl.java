@@ -2,9 +2,7 @@ package cn.tedu.knows.sys.service.impl;
 
 
 import cn.tedu.knows.commons.exception.ServiceException;
-import cn.tedu.knows.commons.model.Classroom;
-import cn.tedu.knows.commons.model.User;
-import cn.tedu.knows.commons.model.UserRole;
+import cn.tedu.knows.commons.model.*;
 import cn.tedu.knows.sys.mapper.ClassroomMapper;
 import cn.tedu.knows.sys.mapper.UserMapper;
 import cn.tedu.knows.sys.mapper.UserRoleMapper;
@@ -163,5 +161,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public User getUserByUserName(String username) {
         return userMapper.findUserByUsername(username);
+    }
+
+    @Override
+    public List<Permission> getUserPermissionsById(Integer id) {
+        return userMapper.findUserPermissionsById(id);
+    }
+    @Override
+    public List<Role> getUserRolesById(Integer id) {
+        return userMapper.findUserRolesById(id);
     }
 }
