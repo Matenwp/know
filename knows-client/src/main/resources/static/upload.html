@@ -16,10 +16,23 @@
         </label>
     </div>
     <button type="submit">上传文件</button>
+    <button id="btn" type="button">测试</button>
 </form>
 <img id="image" src="http://localhost:8899/2021/07/02/abc.jpg"  alt="">
 </body>
 <script>
+    $("#btn").click(function(){
+        axios({
+            url:"http://localhost:8010/auth/oauth/token?client_id=gateway-client&client_secret=123456&grant_type=password&username=st2&password=888888",
+            method: "post"
+        }).then(function(response){
+            console.log(response.data);
+        })
+    })
+
+
+
+
 //定义文件上传的方法,表单提交时运行的方法
 $("#demoForm").submit(function(){
     //获得用户选中的文件,这是个js代码,获得的返回值是一个数组
