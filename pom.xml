@@ -32,6 +32,7 @@
         <module>knows-sys</module>
         <module>knows-commons</module>
         <module>knows-faq</module>
+        <module>knows-auth</module>
     </modules>
     <dependencies>
         <dependency>

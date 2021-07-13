@@ -14,12 +14,14 @@
         <module name="knows-resource" />
         <module name="knows-portal" />
         <module name="knows-faq" />
+        <module name="knows-auth" />
         <module name="knows-sys" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="gateway" target="1.8" />
       <module name="knows" target="1.8" />
+      <module name="knows-auth" target="1.8" />
       <module name="knows-client" target="1.8" />
       <module name="knows-commons" target="1.8" />
       <module name="knows-faq" target="1.8" />
@@ -33,6 +35,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="gateway" options="-parameters" />
       <module name="knows" options="-parameters" />
+      <module name="knows-auth" options="-parameters" />
       <module name="knows-client" options="-parameters" />
       <module name="knows-commons" options="-parameters" />
       <module name="knows-faq" options="-parameters" />
