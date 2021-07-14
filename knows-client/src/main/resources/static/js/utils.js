@@ -63,8 +63,10 @@ function addDuration(item){
         item.duration =
             (duration/1000/60/60/24).toFixed(0)+"天以前";
     }
-
 }
+
+
+let token=window.localStorage.getItem("accessToken");
 
 
 

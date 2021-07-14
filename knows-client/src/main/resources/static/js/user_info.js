@@ -6,8 +6,11 @@ let userApp=new Vue({
     methods:{
         loadCurrentUser:function(){
             axios({
-                url:"/v1/users/me",
-                method:"get"
+                url:"http://localhost:9000/v1/users/me",
+                method:"get",
+                params:{
+                    "accessToken":token
+                }
             }).then(function(response){
                 //将axios获得的返回值绑定给vue的user属性
                 userApp.user=response.data;
