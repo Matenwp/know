@@ -14,7 +14,11 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+
+import java.util.Arrays;
 
 @Configuration
 //下面注解表示当前类是配置Oauth2的核心配置类
@@ -26,12 +30,6 @@ public class AuthorizationServer extends
     private AuthenticationManager authenticationManager;
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
-
-
-    //构造方法
-    //这个构造方法会在Oauth2框架内部需要这个类时调用
-    public AuthorizationServer(){
-    }
 
     //设置认证端点的配置(/oauth/token)
     @Override
@@ -51,8 +49,9 @@ public class AuthorizationServer extends
     private TokenStore tokenStore;
     @Autowired
     private ClientDetailsService clientDetailsService;
+    @Autowired
+    private JwtAccessTokenConverter accessTokenConverter;
     //这个方法会在上面方法中调用
-    //可以尝试将@Bean去掉看影响
     @Bean
     public AuthorizationServerTokenServices tokenService(){
         //这个方法的目标就是获得一个令牌生成器
@@ -61,6 +60,11 @@ public class AuthorizationServer extends
         services.setSupportRefreshToken(true);
         //设置令牌生成策略
         services.setTokenStore(tokenStore);
+        //设置令牌增强(固定用法)
+        TokenEnhancerChain chain=new TokenEnhancerChain();
+        chain.setTokenEnhancers(Arrays.asList(accessTokenConverter));
+        //令牌增强对象设置到令牌生成
+        services.setTokenEnhancer(chain);
         //设置令牌有效期
         services.setAccessTokenValiditySeconds(3600);//1小时
         services.setRefreshTokenValiditySeconds(3600*72);//3天
@@ -95,7 +99,5 @@ public class AuthorizationServer extends
                 .checkTokenAccess("permitAll()")
                 //允许提交请求进行认证(申请令牌)
                 .allowFormAuthenticationForClients();
-
-
     }
 }

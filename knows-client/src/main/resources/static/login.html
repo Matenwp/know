@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="css/login.css" >
 </head>
 <body class="bg-light">
-<div class="container-fluid">
+<div class="container-fluid" id="loginApp">
   <div class="row">
     <div class="mx-auto mt-5" style="width: 400px;">
       <h2 class="text-center "><b>达内</b>·知道</h2>
@@ -27,13 +27,18 @@
         <div id="register" class="alert alert-info d-none">
           <i class="fa fa-exclamation-triangle"></i> 已经成功注册，请登录。
         </div>
-        <form action="/login" method="post">
+        <form action="/login" method="post"
+          @submit.prevent="login">
           <div class="form-group has-icon">
-            <input type="text" class="form-control d-inline" name="username" placeholder="手机号">
+            <input type="text" class="form-control d-inline"
+                   name="username" placeholder="手机号"
+                    v-model="username">
             <span class="fa fa-phone form-control-icon"></span>
           </div>
           <div class="form-group has-icon">
-            <input type="password" class="form-control" name="password" placeholder="密码">
+            <input type="password" class="form-control"
+                   name="password" placeholder="密码"
+                   v-model="password">
             <span class="fa fa-lock form-control-icon"></span>
           </div>
           <button type="submit" class="btn btn-primary btn-block ">登录</button>
@@ -46,6 +51,8 @@
 </div>
 <script src="bower_components/jquery/dist/jquery.js" ></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.js" ></script>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
   if (location.search == "?error"){
     $("#error").removeClass("d-none");
@@ -56,6 +63,36 @@
   if (location.search == "?register"){
     $("#register").removeClass("d-none");
   }
+  let loginApp =new Vue({
+    el:"#loginApp",
+    data:{
+      username:"",
+      password:""
+    },
+    methods:{
+      login:function(){
+        let form=new FormData();
+        form.append("username",this.username);
+        form.append("password",this.password);
+        form.append("client_id","gateway-client");
+        form.append("client_secret","123456");
+        form.append("grant_type","password");
+        axios({
+          method:"post",
+          url:"http://localhost:9000/auth/oauth/token",
+          data:form
+        }).then(function(response){
+            console.log(response.data.access_token);
+            //将从授权服务器获得的JWT保存到客户端(浏览器)
+            //一般可以保存到cookie或localStorage
+            window.localStorage.setItem(
+                    "accessToken",response.data.access_token);
+        }).catch(function(error){
+           console.log(error);
+        })
+      }
+    }
+  })
 </script>
 </body>
 </html>
