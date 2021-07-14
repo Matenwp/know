@@ -87,6 +87,8 @@
             //一般可以保存到cookie或localStorage
             window.localStorage.setItem(
                     "accessToken",response.data.access_token);
+            //跳转到另一个页面进行下面的操作
+            location.href="/index.html"
         }).catch(function(error){
            console.log(error);
         })

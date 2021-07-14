@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+</body>
+<script src="bower_components/jquery/dist/jquery.js" ></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js" ></script>
+<script src="bower_components/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    //jquery提供的页面加载完毕之后运行代码的方法
+    $(function(){
+        //从localStorage中获得token输出一下
+        let token=window.localStorage.getItem("accessToken");
+        console.log(token);
+        axios({
+            url:"http://localhost:9000/v1/home",
+            method:"get",
+            param:{
+                "accessToken":token
+            }
+        }).then(function(response){
+
+        })
+    })
+
+</script>
+</html>
