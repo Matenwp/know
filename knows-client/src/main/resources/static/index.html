@@ -23,7 +23,8 @@
                 "accessToken":token
             }
         }).then(function(response){
-
+            console.log(response.data);
+            location.href=response.data;
         })
     })
 
