@@ -26,9 +26,8 @@ public class HomeController {
     // ↓↓↓↓↓↓↓↓↓↓
     @GetMapping("")
     public String index(
-            @AuthenticationPrincipal UserDetails user,
-            String accessToken) {
-        System.out.println(accessToken);
+            @AuthenticationPrincipal UserDetails user) {
+        //System.out.println(accessToken);
         //判断是不是学生
         if (user.getAuthorities().contains(STUDENT)) {
             // ↓↓↓↓↓↓↓↓↓↓
