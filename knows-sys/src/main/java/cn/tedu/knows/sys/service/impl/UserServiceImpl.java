@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -145,14 +146,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
 
+    @Autowired
+    private RestTemplate restTemplate;
     @Override
     public UserVo getCurrentUserVo(String username) {
         //获得当前用户的基本信息
         UserVo userVo=userMapper.findUserVoByUsername(username);
         //按用户id查询这个用户的提问数
-
+        String url=
+            "http://faq-service/v2/questions/count?userId={1}";
+        Integer num=restTemplate.getForObject(
+                url,Integer.class,userVo.getId());
         //将提问数赋值给userVo对象
-
+        userVo.setQuestions(num);
         //下面自己做收藏数的代码
         //别忘了返回userVo!!!
         return userVo;

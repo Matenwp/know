@@ -15,10 +15,11 @@ let questionsApp = new Vue({
                 pageNum = 1;
             }
             axios({
-                url: '/v1/questions/teacher',
+                url: 'http://localhost:9000/v2/questions/teacher',
                 method: "GET",
                 params:{
-                    pageNum:pageNum
+                    pageNum:pageNum,
+                    accessToken:token
                 }
             }).then(function(r){
                 console.log("成功加载数据");

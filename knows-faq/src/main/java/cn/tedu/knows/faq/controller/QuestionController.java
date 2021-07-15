@@ -103,6 +103,13 @@ public class QuestionController {
         return question;
     }
 
+    @GetMapping("/count")
+    public Integer countQuestions(Integer userId){
+        Integer num=questionService
+                .countQuestionsByUserId(userId);
+        return num;
+    }
+
 
 
 
