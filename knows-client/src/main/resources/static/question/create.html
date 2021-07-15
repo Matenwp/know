@@ -473,7 +473,7 @@
           let form=new FormData();
           form.append("imageFile",file);
           axios({
-            url:"/upload/file",
+            url:"http://localhost:9000/image/upload",
             method:"post",
             data:form
           }).then(function(response){
