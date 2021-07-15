@@ -28,7 +28,11 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns(
                         "/v2/questions",
                         "/v2/questions/my",
-                        "/v2/questions/teacher"
+                        "/v2/questions/teacher",
+                        "/v2/answers",
+                        "/v2/comments",
+                        "/v2/comments/*/delete",
+                        "/v2/comments/*/update"
                 );
     }
 }
