@@ -199,6 +199,17 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         return question;
     }
 
+    @Override
+    public PageInfo<Question> getQuestions(Integer pageNum, Integer pageSize) {
+        //通过设置PageHelper对象的赋值,来约定下一次查询的分页参数
+        PageHelper.startPage(pageNum,pageSize);
+        List<Question> list= questionMapper.selectList(null);
+        //别忘了返回
+        return new PageInfo<>(list);
+    }
+
+
+
     @Autowired
     private RestTemplate restTemplate;
     public User getUser(String username){

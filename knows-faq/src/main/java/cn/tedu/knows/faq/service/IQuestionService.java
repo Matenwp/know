@@ -34,4 +34,11 @@ public interface IQuestionService extends IService<Question> {
     // 根据问题id查询问题详情
     Question getQuestionById(Integer id);
 
+
+    // 用于和ES数据库同步数据的业务逻辑层方法
+    PageInfo<Question> getQuestions(
+            Integer pageNum,Integer pageSize);
+
+
+
 }

@@ -15,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * <p>
  *  前端控制器
@@ -109,6 +111,25 @@ public class QuestionController {
                 .countQuestionsByUserId(userId);
         return num;
     }
+    
+    // 根据页码和每页条数分页查询问题集合
+    @GetMapping("/page")
+    public List<Question> questions(
+            Integer pageNum,Integer pageSize){
+        PageInfo<Question> pageInfo=
+                questionService.getQuestions(pageNum,pageSize);
+        return pageInfo.getList();
+    }
+    @GetMapping("/page/count")
+    public Integer pageCount(Integer pageSize){
+        //获得当前question的总条数
+        Integer rows=questionService.count();
+        //根据rows是否能够被pageSize整除来计算总页数
+        //return  rows%pageSize==0?
+        //        rows/pageSize:rows/pageSize+1;
+        return (rows+pageSize-1)/pageSize;
+    }
+
 
 
 
