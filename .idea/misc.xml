@@ -13,6 +13,7 @@
         <option value="$PROJECT_DIR$/knows-commons/pom.xml" />
         <option value="$PROJECT_DIR$/knows-faq/pom.xml" />
         <option value="$PROJECT_DIR$/knows-auth/pom.xml" />
+        <option value="$PROJECT_DIR$/knows-search/pom.xml" />
       </list>
     </option>
   </component>

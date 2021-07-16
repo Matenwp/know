@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/knows-generator/knows-generator.iml" filepath="$PROJECT_DIR$/knows-generator/knows-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/knows-portal/knows-portal.iml" filepath="$PROJECT_DIR$/knows-portal/knows-portal.iml" />
       <module fileurl="file://$PROJECT_DIR$/knows-resource/knows-resource.iml" filepath="$PROJECT_DIR$/knows-resource/knows-resource.iml" />
+      <module fileurl="file://$PROJECT_DIR$/knows-search/knows-search.iml" filepath="$PROJECT_DIR$/knows-search/knows-search.iml" />
       <module fileurl="file://$PROJECT_DIR$/knows-sys/knows-sys.iml" filepath="$PROJECT_DIR$/knows-sys/knows-sys.iml" />
     </modules>
   </component>

@@ -15,6 +15,7 @@
         <module name="knows-portal" />
         <module name="knows-faq" />
         <module name="knows-auth" />
+        <module name="knows-search" />
         <module name="knows-sys" />
       </profile>
     </annotationProcessing>
@@ -28,6 +29,7 @@
       <module name="knows-generator" target="1.8" />
       <module name="knows-portal" target="1.8" />
       <module name="knows-resource" target="1.8" />
+      <module name="knows-search" target="1.8" />
       <module name="knows-sys" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -42,6 +44,7 @@
       <module name="knows-generator" options="-parameters" />
       <module name="knows-portal" options="-parameters" />
       <module name="knows-resource" options="-parameters" />
+      <module name="knows-search" options="-parameters" />
       <module name="knows-sys" options="-parameters" />
     </option>
   </component>
