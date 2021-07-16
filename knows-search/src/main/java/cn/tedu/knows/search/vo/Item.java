@@ -24,9 +24,9 @@ public class Item {
             analyzer = "ik_smart",
             searchAnalyzer = "ik_smart")
     private String title;  //商品标题
-    @Field(type =FieldType.Keyword)
+    @Field(type = FieldType.Keyword)
     private String category;//分类
-    @Field(type =FieldType.Keyword)
+    @Field(type = FieldType.Keyword)
     private String brand;//品牌
     @Field(type = FieldType.Double)
     private Double price;//价格
