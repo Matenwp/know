@@ -1,9 +1,16 @@
 package cn.tedu.knows.search.service.impl;
 
+import cn.tedu.knows.commons.model.User;
 import cn.tedu.knows.search.repository.QuestionRepository;
 import cn.tedu.knows.search.service.IQuestionService;
+import cn.tedu.knows.search.utils.Pages;
 import cn.tedu.knows.search.vo.QuestionVo;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -40,5 +47,26 @@ public class QuestionServiceImpl implements IQuestionService {
         //所有页的数据都新增到Es中了
 
 
+    }
+
+    @Override
+    public PageInfo<QuestionVo> search(String key, String username, Integer pageNum, Integer pageSize) {
+        // 验证一下分页信息不能为空
+        if (pageNum==null)
+            pageNum=1;
+        if (pageSize==null)
+            pageNum=8;
+        // 查询用户信息User对象
+        String url="http://sys-service/v1/auth/user?username={1}";
+        User user=restTemplate.getForObject(
+                url,User.class,username);
+        // 准备分页信息对象Pageable(带排序的)
+        Pageable pageable= PageRequest.of(pageNum-1,pageSize,
+                Sort.Direction.DESC,"createtime");
+        // 执行按条件查询ES获得分页结果
+        Page<QuestionVo> page=questionRepository
+                .queryAllByParams(key,key,user.getId(),pageable);
+        // 转换成PageInfo类型并返回
+        return Pages.pageInfo(page);
     }
 }

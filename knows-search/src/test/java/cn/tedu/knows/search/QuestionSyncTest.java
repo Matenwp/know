@@ -3,6 +3,7 @@ package cn.tedu.knows.search;
 import cn.tedu.knows.search.repository.QuestionRepository;
 import cn.tedu.knows.search.service.IQuestionService;
 import cn.tedu.knows.search.vo.QuestionVo;
+import com.github.pagehelper.PageInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
@@ -41,5 +42,15 @@ public class QuestionSyncTest {
             System.out.println(q);
         }
     }
+    @Test
+    void searchTest(){
+        PageInfo<QuestionVo> qs=questionService
+                .search("java","st2",
+                        1,8);
+        for(QuestionVo q:qs.getList()){
+            System.out.println(q);
+        }
+    }
+
 
 }
