@@ -14,13 +14,24 @@ let questionsApp = new Vue({
             if(!pageNum){
                 pageNum = 1;
             }
+            //获得当前浏览器地址栏?之后的内容
+            let key=location.search;
+            if(!key||!key.startsWith("?key=")){
+                return;
+            }
+            //获得?key=之后的内容
+            //?key=java
+            //0123456789
+            //防中文乱码解码
+            key=decodeURI(key.substring(5));
+            let form=new FormData();
+            form.append("key",key);
+            form.append("pageNum",pageNum);
+            form.append("accessToken",token);
             axios({
                 url: 'http://localhost:9000/v3/questions',
-                method: "GET",
-                params:{
-                    pageNum:pageNum,
-                    accessToken:token
-                }
+                method: "post",
+                data:form
             }).then(function(r){
                 console.log("成功加载数据");
                 console.log(r);

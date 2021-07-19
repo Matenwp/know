@@ -1,5 +1,6 @@
 package cn.tedu.knows.search.service.impl;
 
+import cn.tedu.knows.commons.model.Tag;
 import cn.tedu.knows.commons.model.User;
 import cn.tedu.knows.search.repository.QuestionRepository;
 import cn.tedu.knows.search.service.IQuestionService;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -45,8 +46,6 @@ public class QuestionServiceImpl implements IQuestionService {
             log.debug("新增完成了第{}页",i);
         }
         //所有页的数据都新增到Es中了
-
-
     }
 
     @Override
@@ -66,7 +65,31 @@ public class QuestionServiceImpl implements IQuestionService {
         // 执行按条件查询ES获得分页结果
         Page<QuestionVo> page=questionRepository
                 .queryAllByParams(key,key,user.getId(),pageable);
+        for(QuestionVo q:page){
+            List<Tag> tags=tagName2Tags(q.getTagNames());
+            q.setTags(tags);
+        }
         // 转换成PageInfo类型并返回
         return Pages.pageInfo(page);
+    }
+
+    private Map<String,Tag> getTagMap(){
+        String url="http://faq-service/v2/tags";
+        Tag[] tags=restTemplate.getForObject(url,Tag[].class);
+        Map<String,Tag> tagMap=new HashMap<>();
+        for(Tag t: tags){
+            tagMap.put(t.getName(),t);
+        }
+        return tagMap;
+    }
+
+    private List<Tag> tagName2Tags(String tagNames){
+        String[] names=tagNames.split(",");
+        Map<String,Tag> tagMap=getTagMap();
+        List<Tag> tags=new ArrayList<>();
+        for(String name:names){
+            tags.add(tagMap.get(name));
+        }
+        return tags;
     }
 }
