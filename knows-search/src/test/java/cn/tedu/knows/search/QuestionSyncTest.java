@@ -5,6 +5,8 @@ import cn.tedu.knows.search.service.IQuestionService;
 import cn.tedu.knows.search.vo.QuestionVo;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.RegEx;
 import javax.annotation.Resource;
@@ -26,6 +28,16 @@ public class QuestionSyncTest {
     void  showAll(){
         Iterable<QuestionVo> qs=questionRepository.findAll();
         for(QuestionVo q:qs){
+            System.out.println(q);
+        }
+    }
+    //测试模糊查询
+    @Test
+    void query(){
+        Page<QuestionVo> page=questionRepository
+             .queryAllByParams("方法问题","方法问题",11,
+                     PageRequest.of(0,10));
+        for(QuestionVo q:page){
             System.out.println(q);
         }
     }
