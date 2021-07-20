@@ -10,6 +10,7 @@
         <module name="knows-generator" />
         <module name="knows-client" />
         <module name="knows-commons" />
+        <module name="kafka" />
         <module name="gateway" />
         <module name="knows-resource" />
         <module name="knows-portal" />
@@ -21,6 +22,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="gateway" target="1.8" />
+      <module name="kafka" target="1.8" />
       <module name="knows" target="1.8" />
       <module name="knows-auth" target="1.8" />
       <module name="knows-client" target="1.8" />
@@ -36,6 +38,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="gateway" options="-parameters" />
+      <module name="kafka" options="-parameters" />
       <module name="knows" options="-parameters" />
       <module name="knows-auth" options="-parameters" />
       <module name="knows-client" options="-parameters" />

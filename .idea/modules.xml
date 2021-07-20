@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/gateway/gateway.iml" filepath="$PROJECT_DIR$/gateway/gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kafka/kafka.iml" filepath="$PROJECT_DIR$/kafka/kafka.iml" />
       <module fileurl="file://$PROJECT_DIR$/knows.iml" filepath="$PROJECT_DIR$/knows.iml" />
       <module fileurl="file://$PROJECT_DIR$/knows-auth/knows-auth.iml" filepath="$PROJECT_DIR$/knows-auth/knows-auth.iml" />
       <module fileurl="file://$PROJECT_DIR$/knows-client/knows-client.iml" filepath="$PROJECT_DIR$/knows-client/knows-client.iml" />
