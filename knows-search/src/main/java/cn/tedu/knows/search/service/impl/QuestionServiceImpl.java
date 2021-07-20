@@ -73,6 +73,12 @@ public class QuestionServiceImpl implements IQuestionService {
         return Pages.pageInfo(page);
     }
 
+    @Override
+    public void saveQuestion(QuestionVo questionVo) {
+        //新增questionVo到ES
+        questionRepository.save(questionVo);
+    }
+
     private Map<String,Tag> getTagMap(){
         String url="http://faq-service/v2/tags";
         Tag[] tags=restTemplate.getForObject(url,Tag[].class);

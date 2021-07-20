@@ -2,6 +2,7 @@ package cn.tedu.knows.faq.service.impl;
 
 import cn.tedu.knows.commons.exception.ServiceException;
 import cn.tedu.knows.commons.model.*;
+import cn.tedu.knows.faq.kafka.KafkaProducer;
 import cn.tedu.knows.faq.mapper.QuestionMapper;
 import cn.tedu.knows.faq.mapper.QuestionTagMapper;
 import cn.tedu.knows.faq.mapper.UserQuestionMapper;
@@ -88,6 +89,9 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     private QuestionTagMapper questionTagMapper;
     @Autowired
     private UserQuestionMapper userQuestionMapper;
+    @Autowired
+    private KafkaProducer kafkaProducer;
+
     @Override
     //@Transactional标记上业务逻辑层的方法上
     //SpringBoot封装的功能,将下面方法定义为一个事务
@@ -161,6 +165,8 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
             }
             log.debug("新增了讲师和问题的关系:{}",userQuestion);
         }
+        //新增完了数据库,将信息发送给kafka
+        kafkaProducer.sendQuestion(question);
     }
 
     @Override

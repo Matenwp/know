@@ -12,4 +12,8 @@ public interface IQuestionService {
     PageInfo<QuestionVo> search(String key,String username,
                                 Integer pageNum,Integer pageSize);
 
+    //编写新增一个问题对象到ES的业务逻辑层方法
+    void saveQuestion(QuestionVo questionVo);
+
+
 }
