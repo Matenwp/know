@@ -9,6 +9,8 @@ public class DemoController {
     @GetMapping("/demo")
     public String test(String msg){
         System.out.println("demo运行");
+        String s=null;
+        s.length();
         return "hello world!!!";
     }
 }
