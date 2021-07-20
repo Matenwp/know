@@ -18,6 +18,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
         <!-- Google JSON API -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
